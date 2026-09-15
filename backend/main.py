@@ -6,6 +6,7 @@ import os
 import shutil
 import uuid
 import json
+from pathlib import Path
 
 from backend.preprocessing.raster_processor import RasterProcessor
 from backend.models.unet_plus_plus import GeospatialSegmentationPipeline
@@ -29,18 +30,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Directories setup
-UPLOAD_DIR = "uploads"
-STATIC_DIR = "static"
-os.makedirs(UPLOAD_DIR, exist_ok=True)
-os.makedirs(STATIC_DIR, exist_ok=True)
+# Use absolute paths so the app does not depend on Vercel's working directory.
+BASE_DIR = Path(__file__).resolve().parent.parent
+STATIC_DIR = BASE_DIR / "static"
+RUNTIME_DIR = Path("/tmp/geonex") if os.getenv("VERCEL") else BASE_DIR
+UPLOAD_DIR = RUNTIME_DIR / "uploads"
+DATA_DIR = RUNTIME_DIR / "data_store"
+UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 # Initialize Core Services
 raster_proc = RasterProcessor(tile_size=256, overlap=32)
 ai_pipeline = GeospatialSegmentationPipeline()
 vectorizer = GISVectorizer(min_polygon_area=12)
 change_engine = ChangeDetectionEngine(iou_threshold=0.3, area_diff_threshold=0.15)
-db_manager = GeoSpatialDatabaseManager(db_dir="data_store")
+db_manager = GeoSpatialDatabaseManager(db_dir=str(DATA_DIR))
 
 
 @app.get("/api/health")
@@ -188,8 +191,8 @@ def get_master_db():
 
 
 # Mount static assets for web application
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 @app.get("/")
 def read_root():
-    return FileResponse("static/index.html")
+    return FileResponse(str(STATIC_DIR / "index.html"))
