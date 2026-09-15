@@ -190,9 +190,13 @@ def get_master_db():
     return db_manager.get_master_database()
 
 
-# Mount static assets for web application
-app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
+# Mount static assets when they are present in the serverless bundle.
+if STATIC_DIR.is_dir():
+    app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 @app.get("/")
 def read_root():
-    return FileResponse(str(STATIC_DIR / "index.html"))
+    index_path = STATIC_DIR / "index.html"
+    if index_path.is_file():
+        return FileResponse(str(index_path))
+    return JSONResponse({"status": "online", "message": "GeoNex API is running"})
