@@ -101,17 +101,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 totalRendered++;
                 const p = feature.properties || {};
                 
-                // Build popup content
+                // Build dark glass popup content
+                const headerColor = p.color || p.status_color || '#00E676';
                 let popupHtml = `
-                    <div style="font-family: sans-serif; padding: 4px;">
-                        <h4 style="margin: 0 0 6px 0; color: ${p.color || p.status_color || '#00E676'}">
-                            ${p.change_type ? 'Change: ' + p.change_type : (p.class_name || 'Geo Feature')}
-                        </h4>
-                        <div style="font-size: 12px; color: #333;">
-                            <b>ID:</b> ${p.id || 'N/A'}<br/>
-                            ${p.area_sq_m ? `<b>Area:</b> ${p.area_sq_m} sq. m<br/>` : ''}
-                            ${p.confidence ? `<b>Confidence:</b> ${(p.confidence * 100).toFixed(1)}%<br/>` : ''}
-                            ${p.description ? `<b>Note:</b> ${p.description}<br/>` : ''}
+                    <div style="font-family: 'Outfit', sans-serif; padding: 6px; min-width: 170px;">
+                        <div style="font-size: 10px; font-weight: 800; color: ${headerColor}; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 2px;">
+                            ${p.change_type ? 'DIFF: ' + p.change_type : 'CLASS: ' + (p.class_name || 'FEATURE')}
+                        </div>
+                        <div style="font-size: 15px; font-weight: 700; color: #FFF; font-family: 'Space Grotesk', sans-serif; margin-bottom: 6px;">
+                            ${p.class_name || 'Geo Feature'} #${p.id || 'N/A'}
+                        </div>
+                        <div style="font-size: 12px; color: #94A3B8; display: flex; flex-direction: column; gap: 3px;">
+                            ${p.area_sq_m ? `<div><span style="color:#FFF; font-weight:600;">Area:</span> ${p.area_sq_m} m²</div>` : ''}
+                            ${p.confidence ? `<div><span style="color:#FFF; font-weight:600;">AI Confidence:</span> <span style="color:#00E676; font-weight:700;">${(p.confidence * 100).toFixed(1)}%</span></div>` : ''}
+                            ${p.description ? `<div style="font-size: 11px; color: #E2E8F0; background: rgba(255,255,255,0.06); padding: 4px 6px; border-radius: 4px; margin-top: 4px;">${p.description}</div>` : ''}
                         </div>
                     </div>
                 `;
@@ -332,6 +335,46 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Event Listeners: Drag & Drop Dropzone for Imagery Upload
+    const dropzoneContainer = document.getElementById("dropzone-container");
+    const fileInput = document.getElementById("input-file");
+    const fileNameDisplay = document.getElementById("file-name-display");
+
+    if (dropzoneContainer && fileInput) {
+        dropzoneContainer.addEventListener("click", () => fileInput.click());
+        
+        fileInput.addEventListener("change", () => {
+            if (fileInput.files && fileInput.files[0]) {
+                if (fileNameDisplay) {
+                    fileNameDisplay.textContent = "📄 " + fileInput.files[0].name;
+                    fileNameDisplay.style.display = "inline-block";
+                }
+            }
+        });
+
+        dropzoneContainer.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            dropzoneContainer.classList.add("is-hover");
+        });
+
+        dropzoneContainer.addEventListener("dragleave", () => {
+            dropzoneContainer.classList.remove("is-hover");
+        });
+
+        dropzoneContainer.addEventListener("drop", (e) => {
+            e.preventDefault();
+            dropzoneContainer.classList.remove("is-hover");
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                fileInput.files = e.dataTransfer.files;
+                if (fileNameDisplay) {
+                    fileNameDisplay.textContent = "📄 " + e.dataTransfer.files[0].name;
+                    fileNameDisplay.style.display = "inline-block";
+                }
+            }
+        });
+    }
+
     // Initial Load: Auto-trigger demo initialization
     loadActiveView("survey_2026");
 });
+
