@@ -37,6 +37,8 @@ RUNTIME_DIR = Path("/tmp/geonex") if os.getenv("VERCEL") else BASE_DIR
 UPLOAD_DIR = RUNTIME_DIR / "uploads"
 DATA_DIR = RUNTIME_DIR / "data_store"
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+
 
 # Initialize Core Services
 raster_proc = RasterProcessor(tile_size=256, overlap=32)
