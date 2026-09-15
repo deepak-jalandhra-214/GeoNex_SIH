@@ -1,1 +1,2007 @@
-{}
+{
+  "survey_2025": {
+    "survey_id": "survey_2025",
+    "title": "Baseline Survey 2025",
+    "survey_date": "2025-05-10",
+    "created_at": "2026-09-15T22:44:04.267946",
+    "data": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "id": "feat_1",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.210387,
+                  28.622003
+                ],
+                [
+                  77.210387,
+                  28.620597
+                ],
+                [
+                  77.212413,
+                  28.620597
+                ],
+                [
+                  77.212413,
+                  28.622003
+                ],
+                [
+                  77.210387,
+                  28.622003
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 1,
+            "class_id": 1,
+            "class_name": "Building",
+            "color": "#FF5722",
+            "area_sq_m": 1444.0,
+            "confidence": 0.908
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_2",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.216173,
+                  28.625
+                ],
+                [
+                  77.216173,
+                  28.619728
+                ],
+                [
+                  77.209,
+                  28.619709
+                ],
+                [
+                  77.209,
+                  28.619191
+                ],
+                [
+                  77.216147,
+                  28.619191
+                ],
+                [
+                  77.21676,
+                  28.613918
+                ],
+                [
+                  77.21676,
+                  28.619172
+                ],
+                [
+                  77.224973,
+                  28.619191
+                ],
+                [
+                  77.224973,
+                  28.619709
+                ],
+                [
+                  77.216787,
+                  28.619709
+                ],
+                [
+                  77.216173,
+                  28.625
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 2,
+            "class_id": 2,
+            "class_name": "Road",
+            "color": "#607D8B",
+            "area_sq_m": 7334.0,
+            "confidence": 0.98
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_3",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.210173,
+                  28.617008
+                ],
+                [
+                  77.209987,
+                  28.616712
+                ],
+                [
+                  77.210093,
+                  28.61612
+                ],
+                [
+                  77.210573,
+                  28.615602
+                ],
+                [
+                  77.211373,
+                  28.615158
+                ],
+                [
+                  77.213107,
+                  28.614844
+                ],
+                [
+                  77.213853,
+                  28.614992
+                ],
+                [
+                  77.214253,
+                  28.615251
+                ],
+                [
+                  77.214413,
+                  28.615528
+                ],
+                [
+                  77.214307,
+                  28.61612
+                ],
+                [
+                  77.213187,
+                  28.617008
+                ],
+                [
+                  77.211587,
+                  28.617396
+                ],
+                [
+                  77.210707,
+                  28.617304
+                ],
+                [
+                  77.210173,
+                  28.617008
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 3,
+            "class_id": 3,
+            "class_name": "Water",
+            "color": "#0288D1",
+            "area_sq_m": 4238.38,
+            "confidence": 0.942
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_4",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.22132,
+                  28.618673
+                ],
+                [
+                  77.22132,
+                  28.616712
+                ],
+                [
+                  77.22388,
+                  28.616712
+                ],
+                [
+                  77.22388,
+                  28.618673
+                ],
+                [
+                  77.22132,
+                  28.618673
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 4,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 2544.0,
+            "confidence": 0.925
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_5",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.217853,
+                  28.618673
+                ],
+                [
+                  77.217853,
+                  28.617267
+                ],
+                [
+                  77.220413,
+                  28.617267
+                ],
+                [
+                  77.220413,
+                  28.618673
+                ],
+                [
+                  77.217853,
+                  28.618673
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 5,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 1824.0,
+            "confidence": 0.927
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_6",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.2242,
+                  28.619468
+                ],
+                [
+                  77.2242,
+                  28.619432
+                ],
+                [
+                  77.224733,
+                  28.619432
+                ],
+                [
+                  77.224733,
+                  28.619468
+                ],
+                [
+                  77.2242,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 6,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.952
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_7",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.223133,
+                  28.619468
+                ],
+                [
+                  77.223133,
+                  28.619432
+                ],
+                [
+                  77.223667,
+                  28.619432
+                ],
+                [
+                  77.223667,
+                  28.619468
+                ],
+                [
+                  77.223133,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 7,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.943
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_8",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.222067,
+                  28.619468
+                ],
+                [
+                  77.222067,
+                  28.619432
+                ],
+                [
+                  77.2226,
+                  28.619432
+                ],
+                [
+                  77.2226,
+                  28.619468
+                ],
+                [
+                  77.222067,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 8,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.916
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_9",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.221,
+                  28.619468
+                ],
+                [
+                  77.221,
+                  28.619432
+                ],
+                [
+                  77.221533,
+                  28.619432
+                ],
+                [
+                  77.221533,
+                  28.619468
+                ],
+                [
+                  77.221,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 9,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.911
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_10",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.219933,
+                  28.619468
+                ],
+                [
+                  77.219933,
+                  28.619432
+                ],
+                [
+                  77.220467,
+                  28.619432
+                ],
+                [
+                  77.220467,
+                  28.619468
+                ],
+                [
+                  77.219933,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 10,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.889
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_11",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.218867,
+                  28.619468
+                ],
+                [
+                  77.218867,
+                  28.619432
+                ],
+                [
+                  77.2194,
+                  28.619432
+                ],
+                [
+                  77.2194,
+                  28.619468
+                ],
+                [
+                  77.218867,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 11,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.936
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_12",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.2178,
+                  28.619468
+                ],
+                [
+                  77.2178,
+                  28.619432
+                ],
+                [
+                  77.218333,
+                  28.619432
+                ],
+                [
+                  77.218333,
+                  28.619468
+                ],
+                [
+                  77.2178,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 12,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.957
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_13",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.216733,
+                  28.619468
+                ],
+                [
+                  77.216733,
+                  28.619432
+                ],
+                [
+                  77.217267,
+                  28.619432
+                ],
+                [
+                  77.217267,
+                  28.619468
+                ],
+                [
+                  77.216733,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 13,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.915
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_14",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.215667,
+                  28.619468
+                ],
+                [
+                  77.215667,
+                  28.619432
+                ],
+                [
+                  77.2162,
+                  28.619432
+                ],
+                [
+                  77.2162,
+                  28.619468
+                ],
+                [
+                  77.215667,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 14,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.91
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_15",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.2146,
+                  28.619468
+                ],
+                [
+                  77.2146,
+                  28.619432
+                ],
+                [
+                  77.215133,
+                  28.619432
+                ],
+                [
+                  77.215133,
+                  28.619468
+                ],
+                [
+                  77.2146,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 15,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.978
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_16",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.213533,
+                  28.619468
+                ],
+                [
+                  77.213533,
+                  28.619432
+                ],
+                [
+                  77.214067,
+                  28.619432
+                ],
+                [
+                  77.214067,
+                  28.619468
+                ],
+                [
+                  77.213533,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 16,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.98
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_17",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.212467,
+                  28.619468
+                ],
+                [
+                  77.212467,
+                  28.619432
+                ],
+                [
+                  77.213,
+                  28.619432
+                ],
+                [
+                  77.213,
+                  28.619468
+                ],
+                [
+                  77.212467,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 17,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.892
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_18",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.2114,
+                  28.619468
+                ],
+                [
+                  77.2114,
+                  28.619432
+                ],
+                [
+                  77.211933,
+                  28.619432
+                ],
+                [
+                  77.211933,
+                  28.619468
+                ],
+                [
+                  77.2114,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 18,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.911
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_19",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.210333,
+                  28.619468
+                ],
+                [
+                  77.210333,
+                  28.619432
+                ],
+                [
+                  77.210867,
+                  28.619432
+                ],
+                [
+                  77.210867,
+                  28.619468
+                ],
+                [
+                  77.210333,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 19,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.937
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_20",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.209267,
+                  28.619468
+                ],
+                [
+                  77.209267,
+                  28.619432
+                ],
+                [
+                  77.2098,
+                  28.619432
+                ],
+                [
+                  77.2098,
+                  28.619468
+                ],
+                [
+                  77.209267,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 20,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.912
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_21",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.21812,
+                  28.624038
+                ],
+                [
+                  77.21812,
+                  28.622262
+                ],
+                [
+                  77.221213,
+                  28.622262
+                ],
+                [
+                  77.221213,
+                  28.624038
+                ],
+                [
+                  77.21812,
+                  28.624038
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 21,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 2784.0,
+            "confidence": 0.939
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_22",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.21332,
+                  28.624223
+                ],
+                [
+                  77.21332,
+                  28.623002
+                ],
+                [
+                  77.215347,
+                  28.623002
+                ],
+                [
+                  77.215347,
+                  28.624223
+                ],
+                [
+                  77.21332,
+                  28.624223
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 22,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 1254.0,
+            "confidence": 0.929
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_23",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.21012,
+                  28.624223
+                ],
+                [
+                  77.21012,
+                  28.622817
+                ],
+                [
+                  77.21268,
+                  28.622817
+                ],
+                [
+                  77.21268,
+                  28.624223
+                ],
+                [
+                  77.21012,
+                  28.624223
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 23,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 1824.0,
+            "confidence": 0.891
+          }
+        }
+      ],
+      "metadata": {
+        "total_features": 23,
+        "bounds": {
+          "min_lat": 28.6139,
+          "max_lat": 28.625,
+          "min_lon": 77.209,
+          "max_lon": 77.225
+        },
+        "classes": {
+          "1": "Building",
+          "2": "Road",
+          "3": "Water",
+          "4": "Rooftop"
+        }
+      }
+    }
+  },
+  "survey_2026": {
+    "survey_id": "survey_2026",
+    "title": "New Survey 2026",
+    "survey_date": "2026-09-15",
+    "created_at": "2026-09-15T22:44:10.401744",
+    "data": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "id": "feat_1",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.216173,
+                  28.625
+                ],
+                [
+                  77.216173,
+                  28.619728
+                ],
+                [
+                  77.209,
+                  28.619709
+                ],
+                [
+                  77.209,
+                  28.619191
+                ],
+                [
+                  77.216147,
+                  28.619191
+                ],
+                [
+                  77.21676,
+                  28.613918
+                ],
+                [
+                  77.21676,
+                  28.619172
+                ],
+                [
+                  77.224973,
+                  28.619191
+                ],
+                [
+                  77.224973,
+                  28.619709
+                ],
+                [
+                  77.216787,
+                  28.619709
+                ],
+                [
+                  77.216173,
+                  28.625
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 1,
+            "class_id": 2,
+            "class_name": "Road",
+            "color": "#607D8B",
+            "area_sq_m": 7334.0,
+            "confidence": 0.894
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_2",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.21012,
+                  28.616952
+                ],
+                [
+                  77.210093,
+                  28.61612
+                ],
+                [
+                  77.210573,
+                  28.615602
+                ],
+                [
+                  77.211373,
+                  28.615158
+                ],
+                [
+                  77.21228,
+                  28.614899
+                ],
+                [
+                  77.213107,
+                  28.614844
+                ],
+                [
+                  77.213853,
+                  28.614992
+                ],
+                [
+                  77.214253,
+                  28.615251
+                ],
+                [
+                  77.214413,
+                  28.615528
+                ],
+                [
+                  77.214307,
+                  28.61612
+                ],
+                [
+                  77.213907,
+                  28.616564
+                ],
+                [
+                  77.21292,
+                  28.617119
+                ],
+                [
+                  77.210413,
+                  28.617193
+                ],
+                [
+                  77.21012,
+                  28.616952
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 2,
+            "class_id": 3,
+            "class_name": "Water",
+            "color": "#0288D1",
+            "area_sq_m": 4084.12,
+            "confidence": 0.905
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_3",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.21012,
+                  28.618488
+                ],
+                [
+                  77.21012,
+                  28.617267
+                ],
+                [
+                  77.21268,
+                  28.617267
+                ],
+                [
+                  77.21268,
+                  28.618488
+                ],
+                [
+                  77.21012,
+                  28.618488
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 3,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 1584.0,
+            "confidence": 0.912
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_4",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.22132,
+                  28.618673
+                ],
+                [
+                  77.22132,
+                  28.616712
+                ],
+                [
+                  77.22388,
+                  28.616712
+                ],
+                [
+                  77.22388,
+                  28.618673
+                ],
+                [
+                  77.22132,
+                  28.618673
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 4,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 2544.0,
+            "confidence": 0.925
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_5",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.217853,
+                  28.618673
+                ],
+                [
+                  77.217853,
+                  28.617267
+                ],
+                [
+                  77.220413,
+                  28.617267
+                ],
+                [
+                  77.220413,
+                  28.618673
+                ],
+                [
+                  77.217853,
+                  28.618673
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 5,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 1824.0,
+            "confidence": 0.961
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_6",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.2242,
+                  28.619468
+                ],
+                [
+                  77.2242,
+                  28.619432
+                ],
+                [
+                  77.224733,
+                  28.619432
+                ],
+                [
+                  77.224733,
+                  28.619468
+                ],
+                [
+                  77.2242,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 6,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.886
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_7",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.223133,
+                  28.619468
+                ],
+                [
+                  77.223133,
+                  28.619432
+                ],
+                [
+                  77.223667,
+                  28.619432
+                ],
+                [
+                  77.223667,
+                  28.619468
+                ],
+                [
+                  77.223133,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 7,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.95
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_8",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.222067,
+                  28.619468
+                ],
+                [
+                  77.222067,
+                  28.619432
+                ],
+                [
+                  77.2226,
+                  28.619432
+                ],
+                [
+                  77.2226,
+                  28.619468
+                ],
+                [
+                  77.222067,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 8,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.885
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_9",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.221,
+                  28.619468
+                ],
+                [
+                  77.221,
+                  28.619432
+                ],
+                [
+                  77.221533,
+                  28.619432
+                ],
+                [
+                  77.221533,
+                  28.619468
+                ],
+                [
+                  77.221,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 9,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.9
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_10",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.219933,
+                  28.619468
+                ],
+                [
+                  77.219933,
+                  28.619432
+                ],
+                [
+                  77.220467,
+                  28.619432
+                ],
+                [
+                  77.220467,
+                  28.619468
+                ],
+                [
+                  77.219933,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 10,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.959
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_11",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.218867,
+                  28.619468
+                ],
+                [
+                  77.218867,
+                  28.619432
+                ],
+                [
+                  77.2194,
+                  28.619432
+                ],
+                [
+                  77.2194,
+                  28.619468
+                ],
+                [
+                  77.218867,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 11,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.941
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_12",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.2178,
+                  28.619468
+                ],
+                [
+                  77.2178,
+                  28.619432
+                ],
+                [
+                  77.218333,
+                  28.619432
+                ],
+                [
+                  77.218333,
+                  28.619468
+                ],
+                [
+                  77.2178,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 12,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.901
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_13",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.216733,
+                  28.619468
+                ],
+                [
+                  77.216733,
+                  28.619432
+                ],
+                [
+                  77.217267,
+                  28.619432
+                ],
+                [
+                  77.217267,
+                  28.619468
+                ],
+                [
+                  77.216733,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 13,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.968
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_14",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.215667,
+                  28.619468
+                ],
+                [
+                  77.215667,
+                  28.619432
+                ],
+                [
+                  77.2162,
+                  28.619432
+                ],
+                [
+                  77.2162,
+                  28.619468
+                ],
+                [
+                  77.215667,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 14,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.883
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_15",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.2146,
+                  28.619468
+                ],
+                [
+                  77.2146,
+                  28.619432
+                ],
+                [
+                  77.215133,
+                  28.619432
+                ],
+                [
+                  77.215133,
+                  28.619468
+                ],
+                [
+                  77.2146,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 15,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.973
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_16",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.213533,
+                  28.619468
+                ],
+                [
+                  77.213533,
+                  28.619432
+                ],
+                [
+                  77.214067,
+                  28.619432
+                ],
+                [
+                  77.214067,
+                  28.619468
+                ],
+                [
+                  77.213533,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 16,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.893
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_17",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.212467,
+                  28.619468
+                ],
+                [
+                  77.212467,
+                  28.619432
+                ],
+                [
+                  77.213,
+                  28.619432
+                ],
+                [
+                  77.213,
+                  28.619468
+                ],
+                [
+                  77.212467,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 17,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.919
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_18",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.2114,
+                  28.619468
+                ],
+                [
+                  77.2114,
+                  28.619432
+                ],
+                [
+                  77.211933,
+                  28.619432
+                ],
+                [
+                  77.211933,
+                  28.619468
+                ],
+                [
+                  77.2114,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 18,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.957
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_19",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.210333,
+                  28.619468
+                ],
+                [
+                  77.210333,
+                  28.619432
+                ],
+                [
+                  77.210867,
+                  28.619432
+                ],
+                [
+                  77.210867,
+                  28.619468
+                ],
+                [
+                  77.210333,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 19,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.923
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_20",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.209267,
+                  28.619468
+                ],
+                [
+                  77.209267,
+                  28.619432
+                ],
+                [
+                  77.2098,
+                  28.619432
+                ],
+                [
+                  77.2098,
+                  28.619468
+                ],
+                [
+                  77.209267,
+                  28.619468
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 20,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 10.0,
+            "confidence": 0.958
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_21",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.21812,
+                  28.624038
+                ],
+                [
+                  77.21812,
+                  28.621614
+                ],
+                [
+                  77.221613,
+                  28.621614
+                ],
+                [
+                  77.221613,
+                  28.624038
+                ],
+                [
+                  77.21812,
+                  28.624038
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 21,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 4290.25,
+            "confidence": 0.903
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_22",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.221853,
+                  28.624223
+                ],
+                [
+                  77.221853,
+                  28.622632
+                ],
+                [
+                  77.224147,
+                  28.622632
+                ],
+                [
+                  77.224147,
+                  28.624223
+                ],
+                [
+                  77.221853,
+                  28.624223
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 22,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 1849.0,
+            "confidence": 0.918
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_23",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.21332,
+                  28.624223
+                ],
+                [
+                  77.21332,
+                  28.623002
+                ],
+                [
+                  77.215347,
+                  28.623002
+                ],
+                [
+                  77.215347,
+                  28.624223
+                ],
+                [
+                  77.21332,
+                  28.624223
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 23,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 1254.0,
+            "confidence": 0.887
+          }
+        },
+        {
+          "type": "Feature",
+          "id": "feat_24",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.21012,
+                  28.624223
+                ],
+                [
+                  77.21012,
+                  28.622817
+                ],
+                [
+                  77.21268,
+                  28.622817
+                ],
+                [
+                  77.21268,
+                  28.624223
+                ],
+                [
+                  77.21012,
+                  28.624223
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": 24,
+            "class_id": 4,
+            "class_name": "Rooftop",
+            "color": "#E91E63",
+            "area_sq_m": 1824.0,
+            "confidence": 0.964
+          }
+        }
+      ],
+      "metadata": {
+        "total_features": 24,
+        "bounds": {
+          "min_lat": 28.6139,
+          "max_lat": 28.625,
+          "min_lon": 77.209,
+          "max_lon": 77.225
+        },
+        "classes": {
+          "1": "Building",
+          "2": "Road",
+          "3": "Water",
+          "4": "Rooftop"
+        }
+      }
+    }
+  }
+}

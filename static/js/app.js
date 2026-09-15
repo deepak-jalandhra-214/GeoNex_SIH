@@ -35,6 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectSurveyView = document.getElementById("select-survey-view");
     const uploadForm = document.getElementById("upload-form");
     const btnUpdateMaster = document.getElementById("btn-update-master");
+    const btnViewChanges = document.getElementById("btn-view-changes");
+    const mapViewTitle = document.getElementById("map-view-title");
+    const mapViewSubtitle = document.getElementById("map-view-subtitle");
     
     const statTotalFeatures = document.getElementById("stat-total-features");
     const statChangedCount = document.getElementById("stat-changed-count");
@@ -146,6 +149,18 @@ document.addEventListener("DOMContentLoaded", () => {
         currentViewMode = viewMode;
         aiStatusText.textContent = `Fetching ${viewMode}...`;
 
+        const viewCopy = {
+            survey_2025: ["Baseline Survey", "2025", "Original mapped features for comparison"],
+            survey_2026: ["New Survey", "2026", "AI-extracted geospatial features ready for review"],
+            changes: ["Detected Changes", "2025 → 2026", "Only changed areas are highlighted"],
+            master: ["Master Geospatial Map", "LIVE", "Incremental map updated from approved surveys"]
+        };
+        const copy = viewCopy[viewMode];
+        if (copy && mapViewTitle && mapViewSubtitle) {
+            mapViewTitle.innerHTML = `${copy[0]} <em>${copy[1]}</em>`;
+            mapViewSubtitle.textContent = copy[2];
+        }
+
         try {
             if (viewMode === "changes") {
                 const res = await fetch("/api/change-detection?t1_id=survey_2025&t2_id=survey_2026", { method: "POST" });
@@ -212,6 +227,13 @@ document.addEventListener("DOMContentLoaded", () => {
     selectSurveyView.addEventListener("change", (e) => {
         loadActiveView(e.target.value);
     });
+
+    if (btnViewChanges) {
+        btnViewChanges.addEventListener("click", () => {
+            selectSurveyView.value = "changes";
+            loadActiveView("changes");
+        });
+    }
 
     // Event Listener: Upload Drone Raster Form
     uploadForm.addEventListener("submit", async (e) => {
@@ -284,6 +306,31 @@ document.addEventListener("DOMContentLoaded", () => {
         activeCategoryFilters[4] = e.target.checked;
         if (currentGeoJSON) renderGeoJSON(currentGeoJSON);
     });
+
+    // Event Listeners: System Architecture Modal
+    const archModal = document.getElementById("arch-modal");
+    const btnViewArch = document.getElementById("btn-view-architecture");
+    const btnCloseArch = document.getElementById("btn-close-arch-modal");
+
+    if (btnViewArch && archModal) {
+        btnViewArch.addEventListener("click", () => {
+            archModal.style.display = "flex";
+        });
+    }
+
+    if (btnCloseArch && archModal) {
+        btnCloseArch.addEventListener("click", () => {
+            archModal.style.display = "none";
+        });
+    }
+
+    if (archModal) {
+        archModal.addEventListener("click", (e) => {
+            if (e.target === archModal) {
+                archModal.style.display = "none";
+            }
+        });
+    }
 
     // Initial Load: Auto-trigger demo initialization
     loadActiveView("survey_2026");

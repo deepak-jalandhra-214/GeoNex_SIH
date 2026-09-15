@@ -21,6 +21,12 @@
         </div>
 
         <div class="header-status">
+            <button id="btn-view-architecture" class="btn btn-outline" style="padding: 6px 14px; font-size: 13px; gap: 6px; border-color: rgba(0, 242, 254, 0.4); color: var(--text-main); background: rgba(0, 242, 254, 0.1);">
+                <i class="fa-solid fa-sitemap" style="color: #00F2FE;"></i> System Architecture
+            </button>
+            <a href="/static/slides.html" target="_blank" class="btn btn-outline" style="padding: 6px 14px; font-size: 13px; gap: 6px; border-color: rgba(245, 158, 11, 0.4); color: #F59E0B; text-decoration: none; background: rgba(245, 158, 11, 0.1); display: inline-flex; align-items: center;">
+                <i class="fa-solid fa-sliders"></i> Presentation Deck
+            </a>
             <div class="status-indicator">
                 <div class="status-dot"></div>
                 <span id="ai-status-text">UNet++ Model Ready</span>
@@ -31,21 +37,51 @@
     <!-- Main Container -->
     <div class="main-container">
 
+      <section class="workflow-strip" aria-label="GeoNex processing workflow">
+        <div class="workflow-intro">
+          <span class="eyebrow">INCREMENTAL GIS ENGINE</span>
+          <strong>Build once. Detect change. Update only what moved.</strong>
+        </div>
+        <div class="workflow-steps">
+          <div class="workflow-step is-active"><span>01</span><b>Survey</b><small>Drone imagery</small></div>
+          <i class="fa-solid fa-arrow-right"></i>
+          <div class="workflow-step"><span>02</span><b>Extract</b><small>AI features</small></div>
+          <i class="fa-solid fa-arrow-right"></i>
+          <div class="workflow-step"><span>03</span><b>Compare</b><small>Change detection</small></div>
+          <i class="fa-solid fa-arrow-right"></i>
+          <div class="workflow-step"><span>04</span><b>Update</b><small>Master map</small></div>
+        </div>
+      </section>
+
         <!-- Sidebar Controls -->
         <aside class="sidebar">
 
             <!-- Quick Start Demo -->
-            <div class="card" style="border-color: rgba(0, 230, 118, 0.3);">
+            <div class="card hero-card" style="border-color: rgba(0, 230, 118, 0.3);">
                 <div class="card-header" style="margin-bottom: 8px;">
                     <div class="card-title">
                         <i class="fa-solid fa-bolt" style="color: var(--primary);"></i>
                         Quick Start Demo
                     </div>
                 </div>
+                <p class="card-kicker">A live prototype for urban parcel mapping and cadastral updates.</p>
                 <button id="btn-load-demo" class="btn btn-primary">
                     <i class="fa-solid fa-play"></i>
                     Load SIH 2026 Datasets
                 </button>
+            </div>
+
+            <div class="survey-compare card">
+              <div class="card-header">
+                <div class="card-title"><i class="fa-solid fa-code-compare" style="color: var(--accent-blue);"></i> Survey comparison</div>
+                <span class="live-tag">LIVE</span>
+              </div>
+              <div class="compare-row">
+                <div><span class="compare-label">BASELINE</span><strong>2025</strong></div>
+                <i class="fa-solid fa-arrow-right"></i>
+                <div><span class="compare-label">CURRENT</span><strong>2026</strong></div>
+              </div>
+              <button id="btn-view-changes" class="btn btn-outline compact-btn"><i class="fa-solid fa-eye"></i> View detected changes</button>
             </div>
 
             <!-- Active View & Survey Selection -->
@@ -190,6 +226,12 @@
                 </div>
             </div>
 
+            <div class="map-heading">
+              <span class="eyebrow">ACTIVE MAP VIEW</span>
+              <h1 id="map-view-title">New Survey <em>2026</em></h1>
+              <p id="map-view-subtitle">AI-extracted geospatial features ready for review</p>
+            </div>
+
             <!-- Interactive Map Legend -->
             <div class="map-legend">
                 <div class="legend-title">Feature Legend</div>
@@ -227,6 +269,182 @@
             </div>
 
         </main>
+    </div>
+
+    <!-- System Architecture Modal -->
+    <div id="arch-modal" class="modal-backdrop" style="display: none;">
+        <div class="modal-container" style="max-width: 1200px; width: 95vw; background: #070D1E; border: 1px solid rgba(0, 242, 254, 0.4); border-radius: 16px; padding: 24px; box-shadow: 0 0 40px rgba(0,0,0,0.8); max-height: 90vh; overflow-y: auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px;">
+                <div>
+                    <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; color: #fff;">
+                        <i class="fa-solid fa-sitemap" style="color: #00F2FE;"></i> GeoNex - Deep Learning & GIS System Architecture
+                    </h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2px;">End-to-End Autonomous Drone Imagery Segmentation & Change Detection Engine</p>
+                </div>
+                <button id="btn-close-arch-modal" style="background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; padding: 0 8px;">&times;</button>
+            </div>
+            
+            <div class="arch-diagram-container">
+              <!-- TOP ROW: 6 PIPELINE STAGES -->
+              <div class="pipeline-row">
+
+                <!-- STAGE 1 -->
+                <div class="stage-box st-1">
+                  <div class="stage-header-title">1. Input Data<br><span style="font-weight:400; opacity:0.85; font-size:0.75rem;">(Drone Imagery)</span></div>
+                  <div class="stage-content">
+                    <div class="item-row"><i class="fa-solid fa-layer-group" style="color:#60A5FA;"></i> <span><strong>ECW / GeoTIFF</strong><br><small style="color:var(--text-muted);">(Raster)</small></span></div>
+                    <div style="text-align:center; font-weight:700; color:#60A5FA; font-size:0.75rem;">+</div>
+                    <div class="item-row"><i class="fa-solid fa-draw-polygon" style="color:#60A5FA;"></i> <span><strong>Shapefiles</strong><br><small style="color:var(--text-muted);">(Vector)</small></span></div>
+                  </div>
+                </div>
+
+                <!-- STAGE 2 -->
+                <div class="stage-box st-2">
+                  <div class="stage-header-title">2. Pre-processing<br><span style="font-weight:400; opacity:0.85; font-size:0.75rem;">(Geospatial Engine)</span></div>
+                  <div class="stage-content">
+                    <div class="item-row"><i class="fa-solid fa-file-check" style="color:#34D399;"></i> <span>Read & Validate</span></div>
+                    <div class="item-row"><i class="fa-solid fa-crop-simple" style="color:#34D399;"></i> <span>Tiling & Resize</span></div>
+                    <div class="item-row"><i class="fa-solid fa-sliders" style="color:#34D399;"></i> <span>Normalization (0–1)</span></div>
+                    <div class="item-row"><i class="fa-solid fa-earth-americas" style="color:#34D399;"></i> <span>Geo-referencing (GDAL)</span></div>
+                  </div>
+                </div>
+
+                <!-- STAGE 3 -->
+                <div class="stage-box st-3">
+                  <div class="stage-header-title">3. AI Model<br><span style="font-weight:400; opacity:0.85; font-size:0.75rem;">(UNet++ Architecture)</span></div>
+                  <div class="stage-content">
+                    <div class="item-row"><i class="fa-solid fa-brain" style="color:#A78BFA;"></i> <span>Input Image ➔ UNet++</span></div>
+                    <div class="mask-tags" style="margin: 0.2rem 0;">
+                      <span class="tag-chip bldg"><i class="fa-solid fa-building"></i> Buildings</span>
+                      <span class="tag-chip road"><i class="fa-solid fa-road"></i> Roads</span>
+                      <span class="tag-chip water"><i class="fa-solid fa-water"></i> Water</span>
+                      <span class="tag-chip roof"><i class="fa-solid fa-house"></i> Rooftops</span>
+                    </div>
+                    <div class="badge-box">
+                      <div class="badge-box-title" style="color:#A78BFA;"><i class="fa-solid fa-microchip"></i> Training</div>
+                      <div style="font-size:0.65rem; color:var(--text-muted); line-height:1.35;">
+                        • Loss: Dice + CE<br>
+                        • Optimizer: Adam<br>
+                        • Epochs & Batch Tuning
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- STAGE 4 -->
+                <div class="stage-box st-4">
+                  <div class="stage-header-title">4. Inference & Extract<br><span style="font-weight:400; opacity:0.85; font-size:0.75rem;">(Feature Engine)</span></div>
+                  <div class="stage-content">
+                    <div class="item-row"><i class="fa-solid fa-bolt" style="color:#22D3EE;"></i> <span>New Image ➔ Model</span></div>
+                    <div class="mask-tags" style="margin: 0.2rem 0;">
+                      <span class="tag-chip bldg">Buildings</span>
+                      <span class="tag-chip road">Roads</span>
+                      <span class="tag-chip water">Water</span>
+                      <span class="tag-chip roof">Rooftops</span>
+                    </div>
+                    <div class="badge-box">
+                      <div class="badge-box-title" style="color:#22D3EE;"><i class="fa-solid fa-wand-magic-sparkles"></i> Post-process</div>
+                      <div style="font-size:0.65rem; color:var(--text-muted); line-height:1.35;">
+                        • Noise Removal<br>
+                        • Morphological Ops<br>
+                        • Polygonization
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- STAGE 5 -->
+                <div class="stage-box st-5">
+                  <div class="stage-header-title">5. GIS Mapping<br><span style="font-weight:400; opacity:0.85; font-size:0.75rem;">(Web Application)</span></div>
+                  <div class="stage-content">
+                    <div class="item-row"><i class="fa-solid fa-map-location-dot" style="color:#FBBF24;"></i> <span>Map Visualizer</span></div>
+                    <div class="mask-tags" style="margin: 0.2rem 0;">
+                      <span class="tag-chip bldg">Buildings</span>
+                      <span class="tag-chip road">Roads</span>
+                      <span class="tag-chip water">Water</span>
+                      <span class="tag-chip roof">Rooftops</span>
+                    </div>
+                    <div class="item-row" style="margin-top:auto;"><i class="fa-solid fa-file-code" style="color:#FBBF24;"></i> <span><strong>GeoJSON / Shapefile</strong><br><small style="color:var(--text-muted);">(Vector Output)</small></span></div>
+                  </div>
+                </div>
+
+                <!-- STAGE 6 -->
+                <div class="stage-box st-6">
+                  <div class="stage-header-title">6. Change Detection<br><span style="font-weight:400; opacity:0.85; font-size:0.75rem;">(& DB Update)</span></div>
+                  <div class="stage-content">
+                    <div class="item-row"><i class="fa-solid fa-right-left" style="color:#F87171;"></i> <span>2025 vs 2026 Survey</span></div>
+                    <div class="mask-tags" style="margin: 0.2rem 0;">
+                      <span class="tag-chip ch-new">+ New</span>
+                      <span class="tag-chip ch-rem">- Removed</span>
+                      <span class="tag-chip ch-mod">~ Modified</span>
+                    </div>
+                    <div class="badge-box" style="background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.4);">
+                      <div class="badge-box-title" style="color:#F87171;"><i class="fa-solid fa-database"></i> Update Database</div>
+                      <div style="font-size:0.65rem; color:var(--text-muted);">Incremental PostGIS Sync</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div> <!-- /pipeline-row -->
+
+              <!-- DOWN ARROW BAR CONNECTING TOP WORKFLOW TO BOTTOM TECH STACK -->
+              <div style="display: flex; align-items: center; justify-content: center; margin: 0.4rem 0;">
+                <div style="height: 1px; flex: 1; background: linear-gradient(90deg, transparent, rgba(0, 242, 254, 0.4), transparent);"></div>
+                <span style="color: #00F2FE; font-weight: 700; font-size: 0.8rem; padding: 0 0.8rem; letter-spacing: 1px;">
+                  SYSTEM ARCHITECTURE & INFRASTRUCTURE STACK <i class="fa-solid fa-arrow-down" style="margin-left: 4px;"></i>
+                </span>
+                <div style="height: 1px; flex: 1; background: linear-gradient(90deg, transparent, rgba(0, 242, 254, 0.4), transparent);"></div>
+              </div>
+
+              <!-- LOWER TECH STACK ROW (4 STACK BOXES) -->
+              <div class="tech-stack-row">
+                <div class="stack-box" style="border-top: 3px solid #00F2FE;">
+                  <div class="stack-box-title" style="color: #00F2FE;">
+                    <i class="fa-solid fa-laptop-code"></i> Frontend (Web App)
+                  </div>
+                  <ul class="stack-items">
+                    <li>Image Upload</li>
+                    <li>Map Visualization</li>
+                    <li>Results & Layers</li>
+                  </ul>
+                </div>
+
+                <div class="stack-box" style="border-top: 3px solid #10B981;">
+                  <div class="stack-box-title" style="color: #10B981;">
+                    <i class="fa-solid fa-server"></i> Backend (FastAPI)
+                  </div>
+                  <ul class="stack-items">
+                    <li>API Endpoints</li>
+                    <li>Processing Pipeline</li>
+                    <li>GeoJSON Output</li>
+                  </ul>
+                </div>
+
+                <div class="stack-box" style="border-top: 3px solid #F59E0B;">
+                  <div class="stack-box-title" style="color: #F59E0B;">
+                    <i class="fa-solid fa-database"></i> Database (PostgreSQL + PostGIS)
+                  </div>
+                  <ul class="stack-items">
+                    <li>Store Geospatial Data</li>
+                    <li>Feature Attributes</li>
+                    <li>Versioning (Surveys)</li>
+                  </ul>
+                </div>
+
+                <div class="stack-box" style="border-top: 3px solid #8B5CF6;">
+                  <div class="stack-box-title" style="color: #8B5CF6;">
+                    <i class="fa-solid fa-cloud"></i> Cloud (AWS - Optional)
+                  </div>
+                  <ul class="stack-items">
+                    <li>S3 (Image & Output Storage)</li>
+                    <li>EC2 (GPU for Processing)</li>
+                    <li>Scalable Deployment</li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+        </div>
     </div>
 
     <!-- Scripts -->

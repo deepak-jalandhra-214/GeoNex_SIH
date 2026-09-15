@@ -288,12 +288,12 @@ def create_deck():
 
     # 6 Stage Pipeline Boxes Across Top
     pipe_stages = [
-        ("1. Input Data", "Drone Orthomosaic\n(ECW / GeoTIFF)", CYAN_ACCENT),
-        ("2. Pre-Processing", "Tiling, Resizing,\nGeo-Referencing", TEXT_WHITE),
-        ("3. AI Segmentation", "UNet++ Deep Model\n(Dice + CE Loss)", GREEN_ACCENT),
-        ("4. Feature Extract", "Noise Removal &\nPolygonization", GOLD_ACCENT),
-        ("5. GIS Mapping", "GeoJSON Output &\nWeb Visualizer", ORANGE_ACCENT),
-        ("6. Change Engine", "Difference Analysis &\nPostGIS Update", PURPLE_ACCENT)
+        ("1. Input Data (Drone Imagery)", "• ECW / GeoTIFF (Raster)\n• Shapefiles (Vector)", CYAN_ACCENT),
+        ("2. Pre-processing", "• Read & Validate\n• Tiling & Resize\n• Normalization (0–1)\n• Geo-referencing (GDAL)", TEXT_WHITE),
+        ("3. AI Model (UNet++)", "• UNet++ Feature Extraction\n• Multi-Class Masks\n• Loss: Dice + CE | Adam", GREEN_ACCENT),
+        ("4. Inference & Feature Extract", "• Trained Model Predicts\n• Noise Removal & Morph Ops\n• Polygonization (Raster→Vector)", GOLD_ACCENT),
+        ("5. GIS Mapping (Web App)", "• Interactive Map Overlays\n• Buildings, Roads, Water\n• GeoJSON / Shapefile Output", ORANGE_ACCENT),
+        ("6. Change Detection & Update", "• 2025 vs 2026 Comparison\n• New / Removed / Modified\n• Update Database (PostGIS)", PURPLE_ACCENT)
     ]
 
     box_w = Inches(1.82)
@@ -312,13 +312,13 @@ def create_deck():
 
         pp1 = ptf.paragraphs[0]
         pp1.text = stitle
-        pp1.font.size = Pt(11)
+        pp1.font.size = Pt(10.5)
         pp1.font.bold = True
         pp1.font.color.rgb = scolor
 
         pp2 = ptf.add_paragraph()
         pp2.text = sdesc
-        pp2.font.size = Pt(10)
+        pp2.font.size = Pt(9.5)
         pp2.font.color.rgb = TEXT_MUTED
         pp2.space_before = Pt(8)
 
@@ -326,16 +326,16 @@ def create_deck():
     arch_title = slide3.shapes.add_textbox(Inches(0.8), Inches(3.9), Inches(11.733), Inches(0.35))
     atf = arch_title.text_frame
     ap = atf.paragraphs[0]
-    ap.text = "SYSTEM ARCHITECTURE & TECH STACK"
+    ap.text = "SYSTEM ARCHITECTURE & CLOUD INFRASTRUCTURE"
     ap.font.size = Pt(13)
     ap.font.bold = True
     ap.font.color.rgb = CYAN_ACCENT
 
     tech_stacks = [
-        ("Frontend (Web App)", ["Interactive Map (Leaflet / Mapbox)", "Layer Toggle (Buildings/Roads)", "Result Analytics Dashboard"], CYAN_ACCENT),
-        ("Backend (FastAPI)", ["RESTful API Endpoints", "Asynchronous Processing Pipeline", "GeoJSON & Vector Exporter"], GREEN_ACCENT),
-        ("Database (PostGIS)", ["PostgreSQL + PostGIS Extension", "Spatial Parcel Indexing", "Survey Versioning System"], GOLD_ACCENT),
-        ("Cloud & Compute", ["AWS S3 Image Store", "GPU Inference (PyTorch)", "Docker Microservices"], PURPLE_ACCENT)
+        ("Frontend (Web App)", ["Image Upload", "Map Visualization", "Results & Layers"], CYAN_ACCENT),
+        ("Backend (FastAPI)", ["API Endpoints", "Processing Pipeline", "GeoJSON Output"], GREEN_ACCENT),
+        ("Database (PostgreSQL + PostGIS)", ["Store Geospatial Data", "Feature Attributes", "Versioning (Surveys)"], GOLD_ACCENT),
+        ("Cloud (AWS - Optional)", ["S3 (Image & Output Storage)", "EC2 (GPU for Processing)", "Scalable Deployment"], PURPLE_ACCENT)
     ]
 
     col_w = Inches(2.78)

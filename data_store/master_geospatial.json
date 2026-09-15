@@ -1,1 +1,125 @@
-{"type": "FeatureCollection", "features": [], "metadata": {"last_updated": "2026-09-15T21:36:58.763850", "version": 1}}
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "change_new_2",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.21012,
+              28.618488
+            ],
+            [
+              77.21012,
+              28.617267
+            ],
+            [
+              77.21268,
+              28.617267
+            ],
+            [
+              77.21268,
+              28.618488
+            ],
+            [
+              77.21012,
+              28.618488
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "change_type": "NEW",
+        "status_color": "#00E676",
+        "class_name": "Rooftop",
+        "area_sq_m": 1584.0,
+        "description": "New construction / feature detected"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "change_mod_20",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.21812,
+              28.624038
+            ],
+            [
+              77.21812,
+              28.621614
+            ],
+            [
+              77.221613,
+              28.621614
+            ],
+            [
+              77.221613,
+              28.624038
+            ],
+            [
+              77.21812,
+              28.624038
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "change_type": "MODIFIED",
+        "status_color": "#FFEA00",
+        "class_name": "Rooftop",
+        "area_sq_m": 4290.25,
+        "area_change_pct": 54.1,
+        "description": "Feature footprint altered by 54.1%"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "change_new_21",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.221853,
+              28.624223
+            ],
+            [
+              77.221853,
+              28.622632
+            ],
+            [
+              77.224147,
+              28.622632
+            ],
+            [
+              77.224147,
+              28.624223
+            ],
+            [
+              77.221853,
+              28.624223
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "change_type": "NEW",
+        "status_color": "#00E676",
+        "class_name": "Rooftop",
+        "area_sq_m": 1849.0,
+        "description": "New construction / feature detected"
+      }
+    }
+  ],
+  "metadata": {
+    "last_updated": "2026-09-15T22:51:06.757162",
+    "total_features": 3,
+    "version": 5
+  }
+}
