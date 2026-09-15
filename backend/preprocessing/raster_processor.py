@@ -1,4 +1,7 @@
-import cv2
+try:
+    import cv2
+except Exception:
+    cv2 = None
 import numpy as np
 from PIL import Image
 import os
@@ -15,13 +18,14 @@ class RasterProcessor:
         if not os.path.exists(file_path):
             raise FileNotFoundError(f"Image not found at {file_path}")
 
-        image = cv2.imread(file_path)
+        image = cv2.imread(file_path) if cv2 is not None else None
         if image is None:
-            # Fallback to PIL if OpenCV fails for certain TIFF formats
+            # Fallback to PIL if OpenCV fails or is not available
             pil_img = Image.open(file_path).convert('RGB')
             img_np = np.array(pil_img)
         else:
             img_np = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
 
         # Normalize to 0-1
         normalized_img = img_np.astype(np.float32) / 255.0
