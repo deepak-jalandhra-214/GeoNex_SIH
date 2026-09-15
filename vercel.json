@@ -1,10 +1,7 @@
 {
   "functions": {
     "backend/main.py": {
-      "includeFiles": [
-        "static/**",
-        "data_store/**"
-      ]
+      "includeFiles": "static/**"
     }
   }
 }
