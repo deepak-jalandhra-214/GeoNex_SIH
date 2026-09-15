@@ -48,7 +48,7 @@ def health_check():
     return {
         "status": "online",
         "system": "GeoNex SIH 2026 AI Engine",
-        "ai_model": "UNet++ Multi-Class Segmentation",
+        "ai_model": "NumPy Spectral Segmentation",
         "device": str(ai_pipeline.device)
     }
 
