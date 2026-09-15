@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeoNex - Smart India Hackathon 2026 Presentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070D1E;
+      --card-bg: rgba(17, 28, 55, 0.85);
+      --card-border: rgba(45, 62, 105, 0.6);
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --cyan: #00F2FE;
+      --cyan-glow: rgba(0, 242, 254, 0.3);
+      --emerald: #10B981;
+      --emerald-glow: rgba(16, 185, 129, 0.3);
+      --gold: #F59E0B;
+      --orange: #F97316;
+      --purple: #8B5CF6;
+      --red: #EF4444;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Outfit', sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      user-select: none;
+    }
+
+    /* Ambient background glowing circles */
+    .bg-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(140px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .glow-1 { top: -100px; left: -100px; background: rgba(0, 242, 254, 0.12); }
+    .glow-2 { bottom: -150px; right: -100px; background: rgba(16, 185, 129, 0.12); }
+
+    /* Slide Deck Viewport */
+    .deck-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 1;
+    }
+
+    /* Top Navigation / Header bar */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      background: rgba(7, 13, 30, 0.7);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, var(--cyan), var(--emerald));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: #070D1E;
+      box-shadow: 0 0 15px var(--cyan-glow);
+    }
+
+    .brand-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .brand-title span { color: var(--cyan); }
+
+    .sih-tag {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: var(--gold);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    /* Main Slide Content Area */
+    .slide-stage {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 2rem 3rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px) scale(0.98);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    .slide-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .slide-sub {
+      color: var(--cyan);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 0.3rem;
+    }
+
+    .slide-title {
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.2;
+    }
+
+    /* Grid Layouts & Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8rem;
+      flex: 1;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      flex: 1;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(0, 242, 254, 0.5);
+    }
+
+    .card.cyan-border { border-top: 4px solid var(--cyan); }
+    .card.emerald-border { border-top: 4px solid var(--emerald); }
+    .card.gold-border { border-top: 4px solid var(--gold); }
+    .card.purple-border { border-top: 4px solid var(--purple); }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .bullet-list li {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      line-height: 1.45;
+      position: relative;
+      padding-left: 1.4rem;
+    }
+
+    .bullet-list li::before {
+      content: '◆';
+      position: absolute;
+      left: 0;
+      color: var(--cyan);
+      font-size: 0.75rem;
+      top: 2px;
+    }
+
+    .bullet-list.emerald li::before { color: var(--emerald); }
+    .bullet-list.gold li::before { color: var(--gold); }
+
+    /* Pipeline Flow Cards (Slide 2 & 3) */
+    .flow-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      flex: 1;
+    }
+
+    .flow-step {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-left: 4px solid var(--cyan);
+      border-radius: 10px;
+      padding: 0.75rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .flow-step .num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      color: var(--cyan);
+      font-size: 1rem;
+      margin-right: 1rem;
+    }
+
+    .flow-step .label {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .flow-step .desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Comparison Diagram (Slide 5) */
+    .comp-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .comp-box {
+      border-radius: 12px;
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .comp-box.traditional {
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .comp-box.proposed {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+    }
+
+    .comp-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .comp-box.traditional .comp-title { color: #FCA5A5; }
+    .comp-box.proposed .comp-title { color: #6EE7B7; }
+
+    .flow-arrows {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    .flow-pill {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.35rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+    }
+
+    .arrow-icon { color: var(--cyan); font-weight: 800; }
+
+    /* Quote Banner */
+    .quote-banner {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(7, 13, 30, 0.9));
+      border: 1px solid var(--gold);
+      border-radius: 14px;
+      padding: 1rem 1.8rem;
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 600;
+      font-style: italic;
+      color: var(--gold);
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.2);
+    }
+
+    /* Bottom Control Bar */
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(7, 13, 30, 0.85);
+      backdrop-filter: blur(10px);
+    }
+
+    .slide-counter {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+    .slide-counter span { color: var(--cyan); font-size: 1.1rem; }
+
+    .nav-buttons {
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 0.5rem 1.2rem;
+      border-radius: 8px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .nav-btn:hover {
+      background: var(--cyan);
+      color: #070D1E;
+      border-color: var(--cyan);
+      box-shadow: 0 0 15px var(--cyan-glow);
+    }
+
+    /* Progress bar */
+    .progress-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--cyan), var(--emerald));
+      width: 16.66%;
+      transition: width 0.4s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
+  <div class="deck-container">
+    
+    <!-- Top Header -->
+    <header>
+      <div class="brand">
+        <div class="brand-logo">GN</div>
+        <div class="brand-title">Geo<span>Nex</span></div>
+      </div>
+      <div class="sih-tag">SMART INDIA HACKATHON 2026</div>
+    </header>
+
+    <!-- Slide Stage -->
+    <main class="slide-stage">
+
+      <!-- ==========================================
+           SLIDE 1: TITLE & OVERVIEW
+           ========================================== -->
+      <section class="slide active" id="slide-1">
+        <div class="slide-header">
+          <div class="slide-sub">Smart Automation Theme • Software Category</div>
+          <h1 class="slide-title">AI-Powered Drone-Based Geospatial Mapping & Change Detection</h1>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1.5rem; flex: 1;">
+          <!-- Hero Card -->
+          <div class="card cyan-border" style="background: linear-gradient(135deg, rgba(0, 242, 254, 0.08), rgba(17, 28, 55, 0.9));">
+            <h2 style="font-size: 1.3rem; color: var(--gold); margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif;">
+              PROBLEM STATEMENT ID: 26012
+            </h2>
+            <p style="font-size: 1.15rem; font-weight: 600; line-height: 1.4; color: #FFF; margin-bottom: 0.6rem;">
+              AI-Based Automated Urban Parcel Mapping and Cadastral Feature Extraction System using Drone Imagery.
+            </p>
+            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5;">
+              Conventional urban mapping is constrained by slow manual digitizing and resource-heavy full-area reprocessing. GeoNex combines high-resolution UNet++ semantic segmentation with automated GIS vectorization and incremental AI change detection for real-time cadastral updates.
+            </p>
+          </div>
+
+          <!-- Metadata 4-Grid -->
+          <div class="grid-4">
+            <div class="card">
+              <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">PS ID</div>
+              <div style="font-size: 1.4rem; font-weight: 700; color: var(--cyan); font-family: 'Space Grotesk'; margin-top: 0.3rem;">26012</div>
+            </div>
+            <div class="card">
+              <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">THEME</div>
+              <div style="font-size: 1.1rem; font-weight: 700; color: var(--emerald); font-family: 'Space Grotesk'; margin-top: 0.3rem;">Smart Automation</div>
+            </div>
+            <div class="card">
+              <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">CATEGORY</div>
+              <div style="font-size: 1.1rem; font-weight: 700; color: var(--gold); font-family: 'Space Grotesk'; margin-top: 0.3rem;">Software</div>
+            </div>
+            <div class="card">
+              <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">TEAM NAME</div>
+              <div style="font-size: 1.4rem; font-weight: 700; color: var(--orange); font-family: 'Space Grotesk'; margin-top: 0.3rem;">GeoNex</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           SLIDE 2: PROBLEM & SOLUTION
+           ========================================== -->
+      <section class="slide" id="slide-2">
+        <div class="slide-header">
+          <div class="slide-sub">System Pipeline & Value Proposition</div>
+          <h1 class="slide-title">How GeoNex Solves Urban Parcel Extraction</h1>
+        </div>
+
+        <div class="grid-2">
+          <!-- Left: Flowchart -->
+          <div class="card cyan-border">
+            <div class="card-title" style="color: var(--cyan);">
+              <span>⚡</span> End-to-End Pipeline Workflow
+            </div>
+            <div class="flow-steps">
+              <div class="flow-step">
+                <span class="num">01</span>
+                <div>
+                  <div class="label">Drone Orthomosaic Imagery</div>
+                  <div class="desc">ECW / GeoTIFF high-resolution aerial rasters</div>
+                </div>
+              </div>
+              <div class="flow-step">
+                <span class="num">02</span>
+                <div>
+                  <div class="label">Geospatial Pre-processing</div>
+                  <div class="desc">Tiling, normalization & WGS84 geo-referencing</div>
+                </div>
+              </div>
+              <div class="flow-step">
+                <span class="num">03</span>
+                <div>
+                  <div class="label">AI Multi-Class Segmentation</div>
+                  <div class="desc">UNet++ extracts Buildings, Roads, Water, Rooftops</div>
+                </div>
+              </div>
+              <div class="flow-step">
+                <span class="num">04</span>
+                <div>
+                  <div class="label">GIS Vectorization & DB</div>
+                  <div class="desc">Raster masks → Polygonized GeoJSON in PostGIS</div>
+                </div>
+              </div>
+              <div class="flow-step">
+                <span class="num">05</span>
+                <div>
+                  <div class="label">AI Change Detection Engine</div>
+                  <div class="desc">Re-processes & updates ONLY modified land parcels</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Bullet Points -->
+          <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+            <div class="card emerald-border" style="flex: 1;">
+              <div class="card-title" style="color: var(--emerald);">
+                <span>🎯</span> How It Addresses The Problem
+              </div>
+              <ul class="bullet-list emerald">
+                <li>Automates geographic feature extraction from high-res drone imagery.</li>
+                <li>Reduces manual GIS parcel mapping & digitizing effort by over 80%.</li>
+                <li>Maintains a reusable master spatial PostGIS database.</li>
+                <li>Subsequent surveys update only changed regions instead of full reprocessing.</li>
+                <li>Provides instant map-ready GIS layers for municipal urban planning.</li>
+              </ul>
+            </div>
+
+            <div class="card gold-border" style="flex: 1;">
+              <div class="card-title" style="color: var(--gold);">
+                <span>💡</span> Innovation & Key Uniqueness
+              </div>
+              <ul class="bullet-list gold">
+                <li><strong>Incremental Updating:</strong> Recomputes modified parcels only.</li>
+                <li><strong>Multi-Class Extraction:</strong> Buildings + Roads + Water + Rooftop types.</li>
+                <li><strong>Confidence-Based Validation:</strong> Flags ambiguous masks for human verification.</li>
+                <li><strong>Web GIS Dashboard:</strong> Interactive visual map analytics and layer controls.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           SLIDE 3: TECHNICAL APPROACH
+           ========================================== -->
+      <section class="slide" id="slide-3">
+        <div class="slide-header">
+          <div class="slide-sub">Deep Learning & GIS Architecture</div>
+          <h1 class="slide-title">Technical Approach & System Architecture</h1>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1.2rem; flex: 1;">
+          <!-- 6 Pipeline Stage Cards -->
+          <div class="grid-4" style="grid-template-columns: repeat(6, 1fr); gap: 0.8rem;">
+            <div class="card cyan-border" style="padding: 1rem;">
+              <div style="font-size: 0.8rem; color: var(--cyan); font-weight: 700;">STAGE 1</div>
+              <div style="font-weight: 700; font-size: 0.95rem; margin-top: 0.2rem;">Input Data</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">GeoTIFF / ECW orthomosaic drone rasters</div>
+            </div>
+            <div class="card" style="padding: 1rem;">
+              <div style="font-size: 0.8rem; color: var(--text-main); font-weight: 700;">STAGE 2</div>
+              <div style="font-weight: 700; font-size: 0.95rem; margin-top: 0.2rem;">Pre-Processing</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">Overlapping tiling, normalization & registration</div>
+            </div>
+            <div class="card emerald-border" style="padding: 1rem;">
+              <div style="font-size: 0.8rem; color: var(--emerald); font-weight: 700;">STAGE 3</div>
+              <div style="font-weight: 700; font-size: 0.95rem; margin-top: 0.2rem;">UNet++ AI</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">Dice + CE Loss, Adam optimizer feature extraction</div>
+            </div>
+            <div class="card gold-border" style="padding: 1rem;">
+              <div style="font-size: 0.8rem; color: var(--gold); font-weight: 700;">STAGE 4</div>
+              <div style="font-weight: 700; font-size: 0.95rem; margin-top: 0.2rem;">Post-Process</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">Noise removal & raster-to-vector polygonization</div>
+            </div>
+            <div class="card purple-border" style="padding: 1rem;">
+              <div style="font-size: 0.8rem; color: var(--purple); font-weight: 700;">STAGE 5</div>
+              <div style="font-weight: 700; font-size: 0.95rem; margin-top: 0.2rem;">Web GIS App</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">GeoJSON map overlays & feature attribute queries</div>
+            </div>
+            <div class="card cyan-border" style="padding: 1rem;">
+              <div style="font-size: 0.8rem; color: var(--cyan); font-weight: 700;">STAGE 6</div>
+              <div style="font-weight: 700; font-size: 0.95rem; margin-top: 0.2rem;">Change Engine</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">Bi-temporal comparison & PostGIS parcel updates</div>
+            </div>
+          </div>
+
+          <!-- Lower Tech Stack Grid -->
+          <div class="grid-4" style="flex: 1;">
+            <div class="card">
+              <div class="card-title" style="color: var(--cyan); font-size: 1rem;">Frontend (Web App)</div>
+              <ul class="bullet-list">
+                <li>Interactive Map (Leaflet / Mapbox)</li>
+                <li>Layer Control (Buildings / Roads / Water)</li>
+                <li>Real-time Spatial Analytics</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <div class="card-title" style="color: var(--emerald); font-size: 1rem;">Backend (FastAPI)</div>
+              <ul class="bullet-list emerald">
+                <li>High-performance REST API</li>
+                <li>Asynchronous Processing Pipeline</li>
+                <li>GeoJSON & Vector Exporter Engine</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <div class="card-title" style="color: var(--gold); font-size: 1rem;">Database (PostGIS)</div>
+              <ul class="bullet-list gold">
+                <li>PostgreSQL 15 + PostGIS extension</li>
+                <li>Spatial Indexing & Topology Checks</li>
+                <li>Survey Versioning History</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <div class="card-title" style="color: var(--purple); font-size: 1rem;">Cloud & Compute</div>
+              <ul class="bullet-list">
+                <li>AWS S3 Raster Storage</li>
+                <li>PyTorch GPU Model Inference</li>
+                <li>Docker Microservices</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           SLIDE 4: FEASIBILITY AND VIABILITY
+           ========================================== -->
+      <section class="slide" id="slide-4">
+        <div class="slide-header">
+          <div class="slide-sub">Feasibility, Scalability & Mitigation</div>
+          <h1 class="slide-title">Feasibility, Viability & Technical Mitigations</h1>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1.2rem; flex: 1;">
+          <!-- Top 3 Feasibility Pillars -->
+          <div class="grid-3">
+            <div class="card cyan-border">
+              <div class="card-title" style="color: var(--cyan);">Technical Feasibility</div>
+              <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.5;">
+                Built on industry-standard AI models (UNet++), spatial libraries (GDAL, Rasterio, Shapely), and standard PyTorch GPU inference pipelines.
+              </p>
+            </div>
+            <div class="card emerald-border">
+              <div class="card-title" style="color: var(--emerald);">Operational Viability</div>
+              <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.5;">
+                Initial survey creates the master cadastral database. Subsequent drone flights trigger incremental change detection without reprocessing intact areas.
+              </p>
+            </div>
+            <div class="card gold-border">
+              <div class="card-title" style="color: var(--gold);">Scalability</div>
+              <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.5;">
+                Overlapping tile-based processing + Docker containerization allows seamless scale-out to city-wide or state-wide drone and satellite surveys.
+              </p>
+            </div>
+          </div>
+
+          <!-- Technical Challenge / Solution Matrix Table -->
+          <div class="card" style="flex: 1;">
+            <div class="card-title" style="color: var(--cyan); margin-bottom: 0.6rem;">
+              <span>🛡️</span> Technical Challenges & Proposed Solutions Matrix
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1.6fr; gap: 0.6rem 1.5rem; font-size: 0.9rem; overflow-y: auto;">
+              <div style="font-weight: 700; color: var(--gold);">Challenge</div>
+              <div style="font-weight: 700; color: var(--emerald);">Proposed Solution</div>
+
+              <div style="border-top: 1px solid var(--card-border); padding-top: 0.4rem; font-weight: 600;">Limited Training Data</div>
+              <div style="border-top: 1px solid var(--card-border); padding-top: 0.4rem; color: var(--text-muted);">Data augmentation (spectral shifts, rotations) + transfer learning from aerial datasets.</div>
+
+              <div style="border-top: 1px solid var(--card-border); padding-top: 0.4rem; font-weight: 600;">Building Segmentation Errors</div>
+              <div style="border-top: 1px solid var(--card-border); padding-top: 0.4rem; color: var(--text-muted);">Combined Dice + Focal loss formulation + morphological polygon boundary smoothing.</div>
+
+              <div style="border-top: 1px solid var(--card-border); padding-top: 0.4rem; font-weight: 600;">Water / Algae Confusion</div>
+              <div style="border-top: 1px solid var(--card-border); padding-top: 0.4rem; color: var(--text-muted);">Hard-negative mining + multi-spectral NDWI band integration where available.</div>
+
+              <div style="border-top: 1px solid var(--card-border); padding-top: 0.4rem; font-weight: 600;">Image Misalignment & Large Size</div>
+              <div style="border-top: 1px solid var(--card-border); padding-top: 0.4rem; color: var(--text-muted);">Automated geospatial registration + adaptive overlapping tile processing engine.</div>
+
+              <div style="border-top: 1px solid var(--card-border); padding-top: 0.4rem; font-weight: 600;">Reprocessing Entire Area</div>
+              <div style="border-top: 1px solid var(--card-border); padding-top: 0.4rem; color: var(--text-muted);">AI-based change detection recomputes modified parcels only (saving >80% compute).</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           SLIDE 5: IMPACT AND BENEFITS
+           ========================================== -->
+      <section class="slide" id="slide-5">
+        <div class="slide-header">
+          <div class="slide-sub">Paradigm Shift & Quantifiable Impact</div>
+          <h1 class="slide-title">Visual Paradigm Shift & Key Benefits</h1>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1.2rem; flex: 1;">
+          <div class="grid-2" style="flex: 1;">
+            <!-- Left: Visual Comparison Diagram -->
+            <div class="card cyan-border">
+              <div class="card-title" style="color: var(--cyan); margin-bottom: 1rem;">
+                <span>🔄</span> Workflow Comparison: Traditional vs GeoNex
+              </div>
+
+              <div class="comp-container">
+                <!-- Traditional -->
+                <div class="comp-box traditional">
+                  <div class="comp-title">TRADITIONAL WORKFLOW (Resource Heavy)</div>
+                  <div class="flow-arrows">
+                    <span class="flow-pill">Full Area Drone Image</span>
+                    <span class="arrow-icon">➔</span>
+                    <span class="flow-pill">Full AI Re-Processing</span>
+                    <span class="arrow-icon">➔</span>
+                    <span class="flow-pill" style="color: #FCA5A5;">High Compute Cost & Slow</span>
+                  </div>
+                </div>
+
+                <!-- Proposed -->
+                <div class="comp-box proposed">
+                  <div class="comp-title">GEONEX PROPOSED WORKFLOW (Smart & Incremental)</div>
+                  <div class="flow-arrows">
+                    <span class="flow-pill">Existing Map + New Survey</span>
+                    <span class="arrow-icon">➔</span>
+                    <span class="flow-pill" style="color: var(--emerald);">AI Change Engine</span>
+                  </div>
+                  <div class="flow-arrows" style="margin-top: 0.4rem;">
+                    <span class="arrow-icon">➔</span>
+                    <span class="flow-pill" style="background: rgba(16, 185, 129, 0.2); color: #6EE7B7; font-weight: 700;">Re-process Changed Parcels ONLY</span>
+                    <span class="arrow-icon">➔</span>
+                    <span class="flow-pill" style="color: var(--cyan);">Instant Database Update</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Benefits Grid -->
+            <div class="card gold-border">
+              <div class="card-title" style="color: var(--gold); margin-bottom: 0.8rem;">
+                <span>🌟</span> Key Benefit Categories
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 0.9rem;">
+                <div>
+                  <div style="font-weight: 700; color: var(--cyan); font-size: 0.95rem;">Urban & Cadastral Planning</div>
+                  <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">Faster building/road mapping, automated parcel extraction, and updated GIS planning layers.</div>
+                </div>
+                <div>
+                  <div style="font-weight: 700; color: var(--emerald); font-size: 0.95rem;">Economic & Compute Efficiency</div>
+                  <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">Reduces manual digitizing effort by >80% and eliminates redundant full-area AI inference.</div>
+                </div>
+                <div>
+                  <div style="font-weight: 700; color: var(--gold); font-size: 0.95rem;">Environmental Monitoring</div>
+                  <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">Monitors water body encroachments, vegetation loss, and urban land-use transitions.</div>
+                </div>
+                <div>
+                  <div style="font-weight: 700; color: var(--purple); font-size: 0.95rem;">Disaster Management</div>
+                  <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">Rapid post-disaster damage mapping and quick hazard assessment for emergency response.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Quote Punchline Banner -->
+          <div class="quote-banner">
+            “Build the map once, detect the changes later, and update only what has changed.”
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           SLIDE 6: RESEARCH AND REFERENCES
+           ========================================== -->
+      <section class="slide" id="slide-6">
+        <div class="slide-header">
+          <div class="slide-sub">Technical Literature & Frameworks</div>
+          <h1 class="slide-title">Research Areas, Tech Stack & References</h1>
+        </div>
+
+        <div class="grid-3">
+          <!-- Col 1 -->
+          <div class="card cyan-border">
+            <div class="card-title" style="color: var(--cyan);">
+              <span>🔗</span> Primary Repository & Refs
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.8rem; margin-top: 0.5rem;">
+              <div>
+                <div style="font-weight: 700; font-size: 0.95rem;">GitHub Repository</div>
+                <a href="https://github.com/Kabeer2004/ProjectVaayu" target="_blank" style="color: var(--cyan); font-size: 0.85rem; text-decoration: none; word-break: break-all;">
+                  https://github.com/Kabeer2004/ProjectVaayu
+                </a>
+              </div>
+              <div>
+                <div style="font-weight: 700; font-size: 0.95rem;">Drone Feature Extraction</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">High-resolution UAV orthomosaic processing pipeline.</div>
+              </div>
+              <div>
+                <div style="font-weight: 700; font-size: 0.95rem;">UNet++ Segmentation</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">Nested UNet architecture with skip pathways for accurate parcel boundaries.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Col 2 -->
+          <div class="card emerald-border">
+            <div class="card-title" style="color: var(--emerald);">
+              <span>📚</span> Core Research Domains
+            </div>
+            <ul class="bullet-list emerald" style="margin-top: 0.5rem;">
+              <li>Semantic Segmentation in High-Res Remote Sensing</li>
+              <li>Deep Learning for Cadastral Feature Extraction</li>
+              <li>Automated Vectorization (Raster to GeoJSON)</li>
+              <li>Bi-temporal Spatial Change Detection</li>
+              <li>Geospatial Image Registration & Alignment</li>
+              <li>PostGIS Spatial Indexing & Versioning</li>
+            </ul>
+          </div>
+
+          <!-- Col 3 -->
+          <div class="card gold-border">
+            <div class="card-title" style="color: var(--gold);">
+              <span>⚙️</span> Tech Stack & Libraries
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.65rem; margin-top: 0.5rem; font-size: 0.85rem;">
+              <div><strong style="color: var(--text-main);">AI Models:</strong> <span style="color: var(--text-muted);">PyTorch, UNet++, segmentation_models_pytorch</span></div>
+              <div><strong style="color: var(--text-main);">GIS Libraries:</strong> <span style="color: var(--text-muted);">GDAL, Rasterio, Shapely, GeoPandas</span></div>
+              <div><strong style="color: var(--text-main);">Spatial Database:</strong> <span style="color: var(--text-muted);">PostgreSQL 15 + PostGIS extension</span></div>
+              <div><strong style="color: var(--text-main);">Backend:</strong> <span style="color: var(--text-muted);">FastAPI async REST microservice</span></div>
+              <div><strong style="color: var(--text-main);">Frontend:</strong> <span style="color: var(--text-muted);">Leaflet.js / Mapbox GL JS, GeoJSON</span></div>
+              <div><strong style="color: var(--text-main);">Deployment:</strong> <span style="color: var(--text-muted);">Docker microservices, AWS S3 / EC2</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Footer Navigation -->
+    <footer>
+      <div class="slide-counter">Slide <span id="current-slide-num">1</span> of <span>6</span></div>
+      <div class="nav-buttons">
+        <button class="nav-btn" id="prev-btn" onclick="prevSlide()">◀ Previous</button>
+        <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next ▶</button>
+      </div>
+      <div class="progress-bar" id="progress-bar"></div>
+    </footer>
+
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 6;
+
+    function updateSlide() {
+      document.querySelectorAll('.slide').forEach((slide, idx) => {
+        if (idx + 1 === currentSlide) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      document.getElementById('current-slide-num').innerText = currentSlide;
+      const progressPercent = (currentSlide / totalSlides) * 100;
+      document.getElementById('progress-bar').style.width = progressPercent + '%';
+
+      document.getElementById('prev-btn').style.opacity = currentSlide === 1 ? '0.4' : '1';
+      document.getElementById('next-btn').style.opacity = currentSlide === totalSlides ? '0.4' : '1';
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        currentSlide++;
+        updateSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        currentSlide--;
+        updateSlide();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      }
+    });
+
+    updateSlide();
+  </script>
+</body>
+</html>

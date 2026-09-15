@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoNex - AI Drone Geospatial Mapping & Change Detection (SIH 2026)</title>
+    
+    <!-- CSS & Fonts -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="app-header">
+        <div class="brand-container">
+            <div class="brand-logo">GN</div>
+            <div class="brand-title">GeoNex AI-GIS</div>
+            <div class="badge-sih">SIH 2026 • PS 26012</div>
+        </div>
+
+        <div class="header-status">
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span id="ai-status-text">UNet++ Model Ready</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+
+        <!-- Sidebar Controls -->
+        <aside class="sidebar">
+
+            <!-- Quick Start Demo -->
+            <div class="card" style="border-color: rgba(0, 230, 118, 0.3);">
+                <div class="card-header" style="margin-bottom: 8px;">
+                    <div class="card-title">
+                        <i class="fa-solid fa-bolt" style="color: var(--primary);"></i>
+                        Quick Start Demo
+                    </div>
+                </div>
+                <button id="btn-load-demo" class="btn btn-primary">
+                    <i class="fa-solid fa-play"></i>
+                    Load SIH 2026 Datasets
+                </button>
+            </div>
+
+            <!-- Active View & Survey Selection -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fa-solid fa-layer-group" style="color: var(--accent-blue);"></i>
+                        Active Survey Layer
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Select Active View</label>
+                    <select id="select-survey-view" class="form-select">
+                        <option value="survey_2025">Baseline Survey (2025)</option>
+                        <option value="survey_2026" selected>New Survey (2026)</option>
+                        <option value="changes">AI Change Detection Overlay</option>
+                        <option value="master">Master Geospatial Map</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Aerial Image Upload & AI Extraction -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fa-solid fa-cloud-arrow-up" style="color: var(--accent-purple);"></i>
+                        Upload Drone Imagery
+                    </div>
+                </div>
+
+                <form id="upload-form" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label class="form-label">Select Raster (GeoTIFF / PNG / JPG)</label>
+                        <input type="file" id="input-file" class="form-input" accept="image/*,.tif,.tiff" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Survey ID & Title</label>
+                        <input type="text" id="input-survey-id" class="form-input" value="survey_custom" placeholder="survey_2026">
+                    </div>
+
+                    <button type="submit" id="btn-upload" class="btn btn-accent" style="margin-top: 6px;">
+                        <i class="fa-solid fa-microchip"></i>
+                        Run AI Segmentation
+                    </button>
+                </form>
+            </div>
+
+            <!-- Cadastral Feature Layer Toggles -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fa-solid fa-sliders" style="color: #FFB300;"></i>
+                        Multi-Feature Filters
+                    </div>
+                </div>
+
+                <div class="layer-toggle-list">
+                    <div class="layer-item">
+                        <div class="layer-info">
+                            <div class="layer-color-dot" style="background-color: var(--color-building);"></div>
+                            Buildings
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="toggle-buildings" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="layer-item">
+                        <div class="layer-info">
+                            <div class="layer-color-dot" style="background-color: var(--color-road);"></div>
+                            Roads
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="toggle-roads" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="layer-item">
+                        <div class="layer-info">
+                            <div class="layer-color-dot" style="background-color: var(--color-water);"></div>
+                            Water Bodies
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="toggle-water" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="layer-item">
+                        <div class="layer-info">
+                            <div class="layer-color-dot" style="background-color: var(--color-rooftop);"></div>
+                            Rooftops
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="toggle-rooftops" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Incremental Master DB Sync -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fa-solid fa-database" style="color: var(--primary);"></i>
+                        Master Map Update
+                    </div>
+                </div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+                    Update only changed areas into master database without reprocessing unchanged terrain.
+                </p>
+                <button id="btn-update-master" class="btn btn-outline">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                    Sync Incremental Updates
+                </button>
+            </div>
+
+        </aside>
+
+        <!-- Map Container -->
+        <main class="map-container">
+            <div id="map"></div>
+
+            <!-- Stats Overlay Pills -->
+            <div class="stats-overlay">
+                <div class="stat-pill">
+                    <span id="stat-total-features" class="stat-value">0</span>
+                    <span class="stat-label">Vector Features</span>
+                </div>
+                <div class="stat-pill">
+                    <span id="stat-changed-count" class="stat-value" style="color: var(--accent-blue);">0</span>
+                    <span class="stat-label">Detected Changes</span>
+                </div>
+                <div class="stat-pill">
+                    <span id="stat-master-ver" class="stat-value" style="color: #FFB300;">v1</span>
+                    <span class="stat-label">Master Version</span>
+                </div>
+            </div>
+
+            <!-- Interactive Map Legend -->
+            <div class="map-legend">
+                <div class="legend-title">Feature Legend</div>
+                <div class="legend-items">
+                    <div class="legend-row">
+                        <div class="legend-box" style="background-color: var(--color-building);"></div>
+                        Buildings (Footprints)
+                    </div>
+                    <div class="legend-row">
+                        <div class="legend-box" style="background-color: var(--color-road);"></div>
+                        Road Network
+                    </div>
+                    <div class="legend-row">
+                        <div class="legend-box" style="background-color: var(--color-water);"></div>
+                        Water Bodies
+                    </div>
+                    <div class="legend-row">
+                        <div class="legend-box" style="background-color: var(--color-rooftop);"></div>
+                        Rooftop Class
+                    </div>
+                    <hr style="border-color: rgba(255,255,255,0.1); margin: 4px 0;">
+                    <div class="legend-row">
+                        <div class="legend-box" style="background-color: var(--color-new);"></div>
+                        🟢 New (Added 2026)
+                    </div>
+                    <div class="legend-row">
+                        <div class="legend-box" style="background-color: var(--color-removed);"></div>
+                        🔴 Removed (Demolished)
+                    </div>
+                    <div class="legend-row">
+                        <div class="legend-box" style="background-color: var(--color-modified);"></div>
+                        🟡 Modified (Renovated)
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
