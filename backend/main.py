@@ -197,8 +197,12 @@ if STATIC_DIR.is_dir():
     app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 @app.get("/")
+@app.get("/api")
+@app.get("/api/")
+@app.get("/api/index.py")
 def read_root():
     index_path = STATIC_DIR / "index.html"
     if index_path.is_file():
         return FileResponse(str(index_path))
     return JSONResponse({"status": "online", "message": "GeoNex API is running"})
+

@@ -5,10 +5,15 @@
       "destination": "/api/index.py"
     },
     {
-      "source": "/(.*)",
-      "destination": "/api/index.py"
+      "source": "/slides",
+      "destination": "/static/slides.html"
+    },
+    {
+      "source": "/",
+      "destination": "/static/index.html"
     }
   ]
 }
+
 
 
