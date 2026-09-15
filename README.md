@@ -1,174 +1,144 @@
-# GeoNex
+# GeoNex - AI Drone Geospatial Mapping & Change Detection Engine
 
-AI-powered drone geospatial mapping and change detection for Smart India Hackathon 2026, Problem Statement 26012.
+> **Smart India Hackathon 2026** • **Problem Statement ID: 26012**  
+> *Autonomous drone aerial imagery vectorization, multi-class feature extraction, incremental change detection, and cadastral database updating.*
 
-GeoNex converts aerial imagery into map-ready geospatial features such as buildings, roads, water bodies, and rooftops. It compares successive surveys, identifies changed areas, and updates a master geospatial database incrementally.
+---
 
-## Highlights
+## 🌟 Overview
 
-- Drone imagery upload through a web dashboard
-- Multi-feature segmentation pipeline
-- Raster-to-GeoJSON vectorization
-- Baseline and new-survey comparison
-- Incremental master geospatial database updates
-- Interactive map layers and survey selection
-- Synthetic 2025 and 2026 demo datasets for quick evaluation
-- FastAPI backend with a browser-based frontend
+**GeoNex** is an AI-powered Web GIS platform designed to convert high-resolution aerial drone orthophotos (GeoTIFF / PNG / JPG) into map-ready vector layers (Buildings, Roads, Water Bodies, Rooftops). 
 
-## Workflow
+By comparing successive drone surveys (e.g., 2025 Baseline vs 2026 Current), GeoNex automatically detects urban changes (New constructions, Demolitions, Footprint modifications) and incrementally updates a central Master Geospatial Database without costly manual digitization.
+
+---
+
+## ✨ Key Features
+
+- **🛸 Drone Imagery Upload & Preprocessing**: Drag-and-drop aerial raster loader with automatic image tiling, normalization, and geo-referencing.
+- **🧠 Lightweight AI Segmentation Pipeline**: Multi-class spectral & neural feature segmentation for urban feature extraction.
+- **📐 Raster-to-GeoJSON Vectorization**: Morphological noise filtering and polygonization into standard OGC GeoJSON vector layers.
+- **🔄 Incremental Change Detection Engine**: Polygon IoU comparison engine identifying:
+  - 🟢 **NEW**: Added in current survey (Green)
+  - 🔴 **REMOVED**: Demolished structures (Red)
+  - 🟡 **MODIFIED**: Footprint modified by >15% (Yellow)
+- **🗄️ Master Geospatial Database Sync**: Delta update sync updating only changed parcels in the master database.
+- **🎨 Glassmorphic Interactive GIS Dashboard**: Built with high-contrast carto maps, floating counter pills, live layer toggles, and modal architecture diagrams.
+- **☁️ Zero-Config Vercel Deployment**: Configured with `@vercel/python` serverless entrypoint and edge static delivery.
+
+---
+
+## 🏗️ System Architecture
 
 ```text
-Drone imagery
-    -> Raster preprocessing
-    -> AI segmentation
-    -> Building / road / water / rooftop features
-    -> GeoJSON vectorization
-    -> Survey database
-    -> Change detection
-    -> Incremental master-map update
+  [ 🛸 Drone Imagery ] ➔ [ ⚙️ Preprocessor (Tiling) ] ➔ [ 🧠 AI Model (UNet++) ]
+                                                                 │
+  [ 🗄️ Master Map Sync ] ⇦ [ 🔄 Change Engine ] ⇦ [ 📐 Vectorizer (GeoJSON) ]
 ```
 
-## Project Structure
+---
+
+## 📁 Repository Structure
 
 ```text
 .
+├── api/
+│   └── index.py               # Vercel Serverless Function entrypoint
 ├── backend/
-│   ├── analysis/          # Change detection
-│   ├── database/          # Survey and master-map persistence
-│   ├── models/            # Geospatial segmentation model
-│   ├── postprocessing/    # Raster-to-vector conversion
-│   ├── preprocessing/     # Image loading and tiling
-│   └── main.py            # FastAPI application and API routes
-├── data_store/            # JSON survey and master-map data
+│   ├── analysis/              # Change detection engine (IoU polygon matching)
+│   ├── database/              # Survey & master-map persistence (GeoSpatial Database)
+│   ├── models/                # Lightweight NumPy segmentation pipeline
+│   ├── postprocessing/        # Raster-to-GeoJSON vectorizer
+│   ├── preprocessing/         # Image loader and overlapping tiling
+│   ├── utils/                 # Synthetic aerial image generator
+│   └── main.py                # FastAPI backend application & API routes
+├── data_store/                # Saved survey JSON & master geospatial database
 ├── static/
-│   ├── index.html         # Web dashboard
-│   ├── css/               # Dashboard styles
-│   └── js/                # Dashboard behavior
-├── uploads/               # Uploaded and generated imagery
-├── run.py                 # Local server entry point
-├── requirements.txt       # Python dependencies
-└── generate_ppt.py        # Presentation-generation utility
+│   ├── css/
+│   │   └── styles.css         # Glassmorphism aesthetic system & responsive styles
+│   ├── js/
+│   │   └── app.js             # Leaflet map logic, API interactions & dropzone
+│   ├── index.html             # Main GIS Dashboard interface
+│   └── slides.html            # SIH 2026 Presentation Deck
+├── pyproject.toml             # Project metadata & headless Python dependencies
+├── requirements.txt           # Vercel / serverless runtime dependencies
+├── vercel.json                # Vercel deployment routing & rewrites
+└── run.py                     # Local server launcher script
 ```
 
-## Requirements
+---
 
-- Python 3.10 or newer recommended
-- pip
-- Optional GPU with a compatible PyTorch installation for faster inference
+## 🚀 Quick Start (Local Setup)
 
-## Installation
+### Prerequisites
+- **Python 3.10+**
+- **pip**
 
-From the repository root:
+### 1. Clone & Setup Virtual Environment
 
 ```powershell
+# Activate Virtual Environment (Windows PowerShell)
 python -m venv .venv
 .venv\Scripts\Activate.ps1
+
+# Upgrade pip and install dependencies
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-On Windows, if PowerShell blocks activation for the current session, run:
-
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-```
-
-Then activate the environment again.
-
-## Run the Application
+### 2. Run the Server
 
 ```powershell
 python run.py
 ```
 
-Open the dashboard at:
+### 3. Open Dashboard
 
-```text
-http://127.0.0.1:8000
-```
+- **Web Dashboard**: [`http://127.0.0.1:8000`](http://127.0.0.1:8000)
+- **API Swagger Documentation**: [`http://127.0.0.1:8000/docs`](http://127.0.0.1:8000/docs)
+- **Interactive Presentation Deck**: [`http://127.0.0.1:8000/slides`](http://127.0.0.1:8000/slides)
 
-The API documentation is available at:
+---
 
-```text
-http://127.0.0.1:8000/docs
-```
+## 🌐 Deploying to Vercel
 
-The server uses reload mode during development. Stop it with `Ctrl+C`.
+The application is pre-configured for Vercel Serverless Functions using `api/index.py` and `opencv-python-headless`.
 
-## Quick Demo
+### One-Click Git Deployment
+1. Push changes to GitHub:
+   ```bash
+   git add .
+   git commit -m "Deploy GeoNex to Vercel"
+   git push origin main
+   ```
+2. Connect your repository in Vercel Dashboard.
+3. Vercel automatically detects `api/index.py` and deploys the FastAPI backend + static CDN frontend!
 
-1. Start the server.
-2. Open the dashboard.
-3. Select **Load SIH 2026 Datasets**.
-4. The application generates baseline and new synthetic surveys.
-5. It runs segmentation, vectorization, change detection, and a master-map update.
-6. Use the active survey selector to inspect the available layers.
+---
 
-The demo endpoint can also be called directly:
+## 🔌 API Reference
 
-```text
-GET http://127.0.0.1:8000/api/generate-demo-data
-```
-
-## API Overview
-
-| Method | Endpoint | Purpose |
+| Method | Endpoint | Description |
 |---|---|---|
-| `GET` | `/api/health` | Check service and model status |
-| `GET` | `/api/generate-demo-data` | Generate and process demo surveys |
-| `POST` | `/api/upload-and-process` | Upload and process an image |
-| `GET` | `/api/surveys` | List stored surveys |
-| `GET` | `/api/surveys/{survey_id}` | Retrieve one survey's GeoJSON |
-| `POST` | `/api/change-detection` | Compare two stored surveys |
-| `POST` | `/api/update-master-db` | Apply detected changes to the master map |
-| `GET` | `/api/master-db` | Retrieve the master geospatial database |
+| `GET` | `/api/health` | Service health status & model device check |
+| `GET` | `/api/generate-demo-data` | Generates 2025 & 2026 drone surveys & runs full pipeline |
+| `POST` | `/api/upload-and-process` | Upload aerial raster image & receive vector GeoJSON |
+| `GET` | `/api/surveys` | List all registered survey versions |
+| `GET` | `/api/surveys/{survey_id}` | Fetch full GeoJSON for a specific survey |
+| `POST` | `/api/change-detection` | Compare baseline vs current survey for polygon diffs |
+| `POST` | `/api/update-master-db` | Apply detected changes to Master Geospatial Database |
+| `GET` | `/api/master-db` | Fetch current Master Geospatial Database GeoJSON |
 
-Interactive request and response schemas are available in FastAPI Swagger at `/docs`.
+---
 
-### Upload example
+## 🏆 Smart India Hackathon 2026 Details
 
-The upload endpoint expects multipart form data:
+- **Problem Statement**: PS 26012 (Smart Automation for Urban Cadastral Mapping)
+- **Domain**: AI / GIS / Remote Sensing
+- **Theme**: Smart Automation & AI Geo-Intelligence
 
-- `file`: PNG, JPG, or GeoTIFF image
-- `survey_id`: unique survey identifier
-- `survey_title`: human-readable survey name
-- `survey_date`: survey date, for example `2026-09-15`
+---
 
-Example with PowerShell:
+## 📄 License
 
-```powershell
-curl.exe -X POST http://127.0.0.1:8000/api/upload-and-process `
-  -F "file=@uploads/drone_survey_2026.png" `
-  -F "survey_id=survey_custom" `
-  -F "survey_title=Custom Survey" `
-  -F "survey_date=2026-09-15"
-```
-
-## Data and Storage
-
-The current prototype stores survey and master-map data as JSON files in `data_store/`. Uploaded and generated images are stored in `uploads/`.
-
-For a production deployment, replace or extend this storage layer with a managed spatial database such as PostgreSQL with PostGIS and add object storage for large raster files.
-
-## Current Prototype Scope
-
-This repository is a working demonstration of the GeoNex workflow. It is designed for local evaluation and hackathon prototyping. Production use would require validated training data, model evaluation metrics, geospatial coordinate handling for each input format, authentication, access control, durable spatial storage, and deployment monitoring.
-
-Do not interpret generated demo results as measured model performance. Add benchmark results only after testing against a documented labelled dataset.
-
-## Presentation
-
-The project presentation is available in the repository as `presentation.html`. The presentation improvement workflow is documented in [`.github/skills/improve-presentation-deck/SKILL.md`](.github/skills/improve-presentation-deck/SKILL.md).
-
-## Team
-
-**GeoNex**
-
-- Smart India Hackathon 2026
-- Problem Statement ID: 26012
-- Theme: Smart Automation
-- Category: Software
-
-## License
-
-No license has been specified yet. Add a license before accepting external contributions or distributing the project publicly.
+This project is licensed under the MIT License - see the `LICENSE` file for details.

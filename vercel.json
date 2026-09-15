@@ -5,6 +5,14 @@
       "destination": "/api/index.py"
     },
     {
+      "source": "/css/(.*)",
+      "destination": "/static/css/$1"
+    },
+    {
+      "source": "/js/(.*)",
+      "destination": "/static/js/$1"
+    },
+    {
       "source": "/slides",
       "destination": "/static/slides.html"
     },
@@ -14,6 +22,7 @@
     }
   ]
 }
+
 
 
 
