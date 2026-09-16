@@ -145,6 +145,32 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    async function ensureDemoDataExists() {
+        try {
+            const surveyListRes = await fetch('/api/surveys');
+            const contentType = surveyListRes.headers.get('content-type') || '';
+            if (!surveyListRes.ok || !contentType.includes('application/json')) {
+                await fetch('/api/generate-demo-data?style=classic');
+                return true;
+            }
+
+            const list = await surveyListRes.json();
+            if (!Array.isArray(list) || list.length === 0) {
+                await fetch('/api/generate-demo-data?style=classic');
+                return true;
+            }
+            return false;
+        } catch (err) {
+            console.warn('Demo data fallback triggered:', err);
+            try {
+                await fetch('/api/generate-demo-data?style=classic');
+            } catch (fallbackErr) {
+                console.error('Fallback generation failed:', fallbackErr);
+            }
+            return true;
+        }
+    }
+
     // API Call: Fetch Data by Active View
     async function loadActiveView(viewMode) {
         currentViewMode = viewMode;
@@ -165,6 +191,17 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             if (viewMode === "changes") {
                 const res = await fetch("/api/change-detection?t1_id=survey_2025&t2_id=survey_2026", { method: "POST" });
+                const contentType = res.headers.get('content-type') || '';
+                if (!res.ok || !contentType.includes('application/json')) {
+                    await ensureDemoDataExists();
+                    const retry = await fetch("/api/change-detection?t1_id=survey_2025&t2_id=survey_2026", { method: "POST" });
+                    const json = await retry.json();
+                    renderGeoJSON(json.changes);
+                    const stats = json.changes.metadata?.summary || {};
+                    statChangedCount.textContent = json.changes.metadata?.total_changes || 0;
+                    aiStatusText.textContent = `AI Change Detection Complete (New: ${stats.new_count || 0}, Mod: ${stats.modified_count || 0})`;
+                    return;
+                }
                 const json = await res.json();
                 renderGeoJSON(json.changes);
                 
@@ -173,15 +210,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 aiStatusText.textContent = `AI Change Detection Complete (New: ${stats.new_count || 0}, Mod: ${stats.modified_count || 0})`;
             } else if (viewMode === "master") {
                 const res = await fetch("/api/master-db");
+                const contentType = res.headers.get('content-type') || '';
+                if (!res.ok || !contentType.includes('application/json')) {
+                    await ensureDemoDataExists();
+                    const retry = await fetch("/api/master-db");
+                    const masterData = await retry.json();
+                    renderGeoJSON(masterData);
+                    statMasterVer.textContent = `v${masterData.metadata?.version || 1}`;
+                    aiStatusText.textContent = "Master Geospatial DB Active";
+                    return;
+                }
                 const masterData = await res.json();
                 renderGeoJSON(masterData);
                 statMasterVer.textContent = `v${masterData.metadata?.version || 1}`;
                 aiStatusText.textContent = "Master Geospatial DB Active";
             } else {
+                await ensureDemoDataExists();
                 const res = await fetch(`/api/surveys/${viewMode}`);
-                if (!res.ok) {
-                    // Trigger demo generation first if survey missing
-                    await fetch("/api/generate-demo-data");
+                const contentType = res.headers.get('content-type') || '';
+                if (!res.ok || !contentType.includes('application/json')) {
+                    await fetch("/api/generate-demo-data?style=classic");
                     const resRetry = await fetch(`/api/surveys/${viewMode}`);
                     const surveyObj = await resRetry.json();
                     renderGeoJSON(surveyObj.data);
