@@ -48,6 +48,15 @@ change_engine = ChangeDetectionEngine(iou_threshold=0.3, area_diff_threshold=0.1
 db_manager = GeoSpatialDatabaseManager(db_dir=str(DATA_DIR))
 
 
+def ensure_seed_demo_data(force: bool = False):
+    """Generate demo survey data on first load for fresh deployments or empty databases."""
+    surveys = db_manager.get_all_surveys()
+    if force or not surveys:
+        generate_demo_data(style="classic")
+        return True
+    return False
+
+
 @app.get("/api/health")
 def health_check():
     return {
@@ -134,6 +143,7 @@ async def upload_and_process(
 @app.get("/api/surveys")
 def list_surveys():
     """Returns list of all registered surveys."""
+    ensure_seed_demo_data()
     surveys = db_manager.get_all_surveys()
     summary_list = []
     for sid, sdata in surveys.items():
@@ -149,6 +159,7 @@ def list_surveys():
 @app.get("/api/surveys/{survey_id}")
 def get_survey_data(survey_id: str):
     """Retrieves full GeoJSON for a given survey."""
+    ensure_seed_demo_data()
     sdata = db_manager.get_survey(survey_id)
     if not sdata:
         raise HTTPException(status_code=404, detail="Survey not found")
@@ -158,6 +169,7 @@ def get_survey_data(survey_id: str):
 @app.post("/api/change-detection")
 def run_change_detection(t1_id: str = "survey_2025", t2_id: str = "survey_2026"):
     """Runs change detection between Survey T1 and Survey T2."""
+    ensure_seed_demo_data()
     s1 = db_manager.get_survey(t1_id)
     s2 = db_manager.get_survey(t2_id)
 
@@ -176,6 +188,7 @@ def run_change_detection(t1_id: str = "survey_2025", t2_id: str = "survey_2026")
 @app.post("/api/update-master-db")
 def update_master_db(t2_id: str = "survey_2026", t1_id: str = "survey_2025"):
     """Applies incremental change updates to Master Geospatial Database."""
+    ensure_seed_demo_data()
     s1 = db_manager.get_survey(t1_id)
     s2 = db_manager.get_survey(t2_id)
 
@@ -194,6 +207,7 @@ def update_master_db(t2_id: str = "survey_2026", t1_id: str = "survey_2025"):
 
 @app.get("/api/master-db")
 def get_master_db():
+    ensure_seed_demo_data()
     return db_manager.get_master_database()
 
 
