@@ -5,6 +5,10 @@
       "destination": "/api/index.py"
     },
     {
+      "source": "/static/(.*)",
+      "destination": "/static/$1"
+    },
+    {
       "source": "/css/(.*)",
       "destination": "/static/css/$1"
     },
