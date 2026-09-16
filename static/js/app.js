@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // DOM Elements
     const btnLoadDemo = document.getElementById("btn-load-demo");
+    const demoStyleSelect = document.getElementById("demo-style-select");
     const selectSurveyView = document.getElementById("select-survey-view");
     const uploadForm = document.getElementById("upload-form");
     const btnUpdateMaster = document.getElementById("btn-update-master");
@@ -198,11 +199,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Event Listener: Demo Quick Start Button
     btnLoadDemo.addEventListener("click", async () => {
-        aiStatusText.textContent = "Generating SIH 2026 Datasets...";
+        const selectedStyle = demoStyleSelect ? (demoStyleSelect.value || "classic") : "classic";
+        aiStatusText.textContent = `Generating SIH 2026 Datasets (${selectedStyle})...`;
         btnLoadDemo.disabled = true;
 
         try {
-            const res = await fetch("/api/generate-demo-data");
+            const res = await fetch(`/api/generate-demo-data?style=${selectedStyle}`);
             const data = await res.json();
             
             // Set view to 2026 survey
@@ -214,7 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const changeJson = await changeRes.json();
             statChangedCount.textContent = changeJson.changes.metadata?.total_changes || 0;
 
-            aiStatusText.textContent = "SIH 2026 Demo Loaded Successfully!";
+            aiStatusText.textContent = `SIH 2026 Demo Loaded Successfully (${data.style || selectedStyle})!`;
         } catch (err) {
             alert("Failed to load demo data: " + err.message);
             aiStatusText.textContent = "Error loading demo";

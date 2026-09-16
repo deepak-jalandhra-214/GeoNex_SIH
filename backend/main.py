@@ -59,13 +59,17 @@ def health_check():
 
 
 @app.get("/api/generate-demo-data")
-def generate_demo_data():
+def generate_demo_data(style: str = "classic"):
     """Generates baseline 2025 and new 2026 drone ortho-photos and runs automatic AI mapping."""
+    style = (style or "classic").lower()
+    if style not in {"classic", "presentation"}:
+        style = "classic"
+
     img_2025_path = os.path.join(UPLOAD_DIR, "drone_survey_2025.png")
     img_2026_path = os.path.join(UPLOAD_DIR, "drone_survey_2026.png")
 
-    generate_synthetic_drone_image(img_2025_path, survey_year=2025)
-    generate_synthetic_drone_image(img_2026_path, survey_year=2026)
+    generate_synthetic_drone_image(img_2025_path, survey_year=2025, preset=style)
+    generate_synthetic_drone_image(img_2026_path, survey_year=2026, preset=style)
 
     # Process 2025 survey
     img_np_2025, shape_2025 = raster_proc.load_image(img_2025_path)
@@ -88,6 +92,7 @@ def generate_demo_data():
     return {
         "status": "success",
         "message": "Generated 2025 & 2026 drone surveys, AI segmentation, vectorization, and change detection!",
+        "style": style,
         "surveys": ["survey_2025", "survey_2026"],
         "changes_summary": changes_geojson.get("metadata", {}).get("summary", {})
     }
