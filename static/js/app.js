@@ -12,12 +12,52 @@ document.addEventListener("DOMContentLoaded", () => {
     // Add Zoom Control to top-left
     L.control.zoom({ position: 'topleft' }).addTo(map);
 
-    // Dark Satellite / Vector Tile Layer
-    const baseTileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    // 2. MapTiler Cloud Tile Layers (GeoNex Key: smGVgbNfKCjdnt7VQ3pr)
+    const MAPTILER_API_KEY = "smGVgbNfKCjdnt7VQ3pr";
+
+    const maptilerDark = L.tileLayer(`https://api.maptiler.com/maps/dataviz-dark/256/{z}/{x}/{y}.png?key=${MAPTILER_API_KEY}`, {
+        maxZoom: 20,
+        attribution: '&copy; <a href="https://www.maptiler.com/copyright/" target="_blank">MapTiler</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> &copy; GeoNex SIH 2026'
+    });
+
+    const maptilerHybrid = L.tileLayer(`https://api.maptiler.com/maps/hybrid/256/{z}/{x}/{y}.jpg?key=${MAPTILER_API_KEY}`, {
+        maxZoom: 20,
+        attribution: '&copy; <a href="https://www.maptiler.com/copyright/" target="_blank">MapTiler</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> &copy; GeoNex SIH 2026'
+    });
+
+    const maptilerStreets = L.tileLayer(`https://api.maptiler.com/maps/streets-v2/256/{z}/{x}/{y}.png?key=${MAPTILER_API_KEY}`, {
+        maxZoom: 20,
+        attribution: '&copy; <a href="https://www.maptiler.com/copyright/" target="_blank">MapTiler</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> &copy; GeoNex SIH 2026'
+    });
+
+    // Fallback Basemap for Local Development if MapTiler Key is HTTP-Origin restricted
+    const cartoFallback = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
         maxZoom: 20,
         subdomains: 'abcd',
         attribution: '&copy; OpenStreetMap contributors &copy; CARTO & GeoNex SIH 2026'
-    }).addTo(map);
+    });
+
+    // Auto-fallback if MapTiler key returns 403 Forbidden on localhost due to Origin locks
+    maptilerDark.on('tileerror', function () {
+        if (!map.hasLayer(cartoFallback)) {
+            console.warn("MapTiler key is origin-locked to geonex.vercel.app. Falling back to CARTO basemap on localhost.");
+            map.removeLayer(maptilerDark);
+            cartoFallback.addTo(map);
+        }
+    });
+
+    // Set default base layer to MapTiler Dark
+    maptilerDark.addTo(map);
+
+    // Add Layer Control for switching MapTiler & Fallback styles
+    const baseMaps = {
+        "MapTiler Dark (Default)": maptilerDark,
+        "MapTiler Satellite Hybrid": maptilerHybrid,
+        "MapTiler Streets": maptilerStreets,
+        "CARTO Open Basemap": cartoFallback
+    };
+
+    L.control.layers(baseMaps, null, { position: 'topright' }).addTo(map);
 
     // State Variables
     let geojsonLayerGroup = L.layerGroup().addTo(map);
