@@ -15,6 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // 2. MapTiler Cloud Tile Layers (GeoNex Key: smGVgbNfKCjdnt7VQ3pr)
     const MAPTILER_API_KEY = "smGVgbNfKCjdnt7VQ3pr";
 
+    const maptilerLight = L.tileLayer(`https://api.maptiler.com/maps/dataviz-light/256/{z}/{x}/{y}.png?key=${MAPTILER_API_KEY}`, {
+        maxZoom: 20,
+        attribution: '&copy; <a href="https://www.maptiler.com/copyright/" target="_blank">MapTiler</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> &copy; GeoNex SIH 2026'
+    });
+
     const maptilerDark = L.tileLayer(`https://api.maptiler.com/maps/dataviz-dark/256/{z}/{x}/{y}.png?key=${MAPTILER_API_KEY}`, {
         maxZoom: 20,
         attribution: '&copy; <a href="https://www.maptiler.com/copyright/" target="_blank">MapTiler</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> &copy; GeoNex SIH 2026'
@@ -38,20 +43,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Auto-fallback if MapTiler key returns 403 Forbidden on localhost due to Origin locks
-    maptilerDark.on('tileerror', function () {
+    maptilerLight.on('tileerror', function () {
         if (!map.hasLayer(cartoFallback)) {
             console.warn("MapTiler key is origin-locked to geonex.vercel.app. Falling back to CARTO basemap on localhost.");
-            map.removeLayer(maptilerDark);
+            map.removeLayer(maptilerLight);
             cartoFallback.addTo(map);
         }
     });
 
-    // Set default base layer to MapTiler Dark
-    maptilerDark.addTo(map);
+    // Set default base layer to MapTiler Light (White theme)
+    maptilerLight.addTo(map);
 
     // Add Layer Control for switching MapTiler & Fallback styles
     const baseMaps = {
-        "MapTiler Dark (Default)": maptilerDark,
+        "MapTiler Light (Default)": maptilerLight,
+        "MapTiler Dark": maptilerDark,
         "MapTiler Satellite Hybrid": maptilerHybrid,
         "MapTiler Streets": maptilerStreets,
         "CARTO Open Basemap": cartoFallback
