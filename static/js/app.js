@@ -12,8 +12,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Add Zoom Control to top-left
     L.control.zoom({ position: 'topleft' }).addTo(map);
 
-    // 2. MapTiler Cloud Tile Layers (Optional: set MAPTILER_API_KEY or use free CARTO fallback)
-    const MAPTILER_API_KEY = ""; // Insert your MapTiler API Key here if desired
+    // 2. MapTiler Cloud Tile Layers (Optional: set MAPTILER_API_KEY via environment variable or use free CARTO fallback)
+    // The MAPTILER_API_KEY should be provided via a server‑side environment variable and injected securely.
+    // For development you may set it in a .env file and expose it through a small backend endpoint.
+    const MAPTILER_API_KEY = ""; // WARNING: Do NOT hard‑code your API key here. Use server‑side injection instead.
 
     const cartoFallback = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
         maxZoom: 20,
