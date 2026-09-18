@@ -12,58 +12,57 @@ document.addEventListener("DOMContentLoaded", () => {
     // Add Zoom Control to top-left
     L.control.zoom({ position: 'topleft' }).addTo(map);
 
-    // 2. MapTiler Cloud Tile Layers (GeoNex Key: smGVgbNfKCjdnt7VQ3pr)
-    const MAPTILER_API_KEY = "smGVgbNfKCjdnt7VQ3pr";
+    // 2. MapTiler Cloud Tile Layers (Optional: set MAPTILER_API_KEY or use free CARTO fallback)
+    const MAPTILER_API_KEY = ""; // Insert your MapTiler API Key here if desired
 
-    const maptilerLight = L.tileLayer(`https://api.maptiler.com/maps/dataviz-light/256/{z}/{x}/{y}.png?key=${MAPTILER_API_KEY}`, {
-        maxZoom: 20,
-        attribution: '&copy; <a href="https://www.maptiler.com/copyright/" target="_blank">MapTiler</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> &copy; GeoNex SIH 2026'
-    });
-
-    const maptilerDark = L.tileLayer(`https://api.maptiler.com/maps/dataviz-dark/256/{z}/{x}/{y}.png?key=${MAPTILER_API_KEY}`, {
-        maxZoom: 20,
-        attribution: '&copy; <a href="https://www.maptiler.com/copyright/" target="_blank">MapTiler</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> &copy; GeoNex SIH 2026'
-    });
-
-    const maptilerHybrid = L.tileLayer(`https://api.maptiler.com/maps/hybrid/256/{z}/{x}/{y}.jpg?key=${MAPTILER_API_KEY}`, {
-        maxZoom: 20,
-        attribution: '&copy; <a href="https://www.maptiler.com/copyright/" target="_blank">MapTiler</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> &copy; GeoNex SIH 2026'
-    });
-
-    const maptilerStreets = L.tileLayer(`https://api.maptiler.com/maps/streets-v2/256/{z}/{x}/{y}.png?key=${MAPTILER_API_KEY}`, {
-        maxZoom: 20,
-        attribution: '&copy; <a href="https://www.maptiler.com/copyright/" target="_blank">MapTiler</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> &copy; GeoNex SIH 2026'
-    });
-
-    // Fallback Basemap for Local Development if MapTiler Key is HTTP-Origin restricted
     const cartoFallback = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
         maxZoom: 20,
         subdomains: 'abcd',
         attribution: '&copy; OpenStreetMap contributors &copy; CARTO & GeoNex SIH 2026'
     });
 
-    // Auto-fallback if MapTiler key returns 403 Forbidden on localhost due to Origin locks
-    maptilerLight.on('tileerror', function () {
-        if (!map.hasLayer(cartoFallback)) {
-            console.warn("MapTiler key is origin-locked to geonex.vercel.app. Falling back to CARTO basemap on localhost.");
-            map.removeLayer(maptilerLight);
-            cartoFallback.addTo(map);
-        }
-    });
+    if (MAPTILER_API_KEY && MAPTILER_API_KEY.trim() !== "") {
+        const maptilerLight = L.tileLayer(`https://api.maptiler.com/maps/dataviz-light/256/{z}/{x}/{y}.png?key=${MAPTILER_API_KEY}`, {
+            maxZoom: 20,
+            attribution: '&copy; <a href="https://www.maptiler.com/copyright/" target="_blank">MapTiler</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> &copy; GeoNex SIH 2026'
+        });
 
-    // Set default base layer to MapTiler Light (White theme)
-    maptilerLight.addTo(map);
+        const maptilerDark = L.tileLayer(`https://api.maptiler.com/maps/dataviz-dark/256/{z}/{x}/{y}.png?key=${MAPTILER_API_KEY}`, {
+            maxZoom: 20,
+            attribution: '&copy; <a href="https://www.maptiler.com/copyright/" target="_blank">MapTiler</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> &copy; GeoNex SIH 2026'
+        });
 
-    // Add Layer Control for switching MapTiler & Fallback styles
-    const baseMaps = {
-        "MapTiler Light (Default)": maptilerLight,
-        "MapTiler Dark": maptilerDark,
-        "MapTiler Satellite Hybrid": maptilerHybrid,
-        "MapTiler Streets": maptilerStreets,
-        "CARTO Open Basemap": cartoFallback
-    };
+        const maptilerHybrid = L.tileLayer(`https://api.maptiler.com/maps/hybrid/256/{z}/{x}/{y}.jpg?key=${MAPTILER_API_KEY}`, {
+            maxZoom: 20,
+            attribution: '&copy; <a href="https://www.maptiler.com/copyright/" target="_blank">MapTiler</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> &copy; GeoNex SIH 2026'
+        });
 
-    L.control.layers(baseMaps, null, { position: 'topright' }).addTo(map);
+        const maptilerStreets = L.tileLayer(`https://api.maptiler.com/maps/streets-v2/256/{z}/{x}/{y}.png?key=${MAPTILER_API_KEY}`, {
+            maxZoom: 20,
+            attribution: '&copy; <a href="https://www.maptiler.com/copyright/" target="_blank">MapTiler</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> &copy; GeoNex SIH 2026'
+        });
+
+        maptilerLight.on('tileerror', function () {
+            if (!map.hasLayer(cartoFallback)) {
+                console.warn("MapTiler tile error. Falling back to CARTO basemap.");
+                map.removeLayer(maptilerLight);
+                cartoFallback.addTo(map);
+            }
+        });
+
+        maptilerLight.addTo(map);
+
+        const baseMaps = {
+            "MapTiler Light (Default)": maptilerLight,
+            "MapTiler Dark": maptilerDark,
+            "MapTiler Satellite Hybrid": maptilerHybrid,
+            "MapTiler Streets": maptilerStreets,
+            "CARTO Open Basemap": cartoFallback
+        };
+        L.control.layers(baseMaps, null, { position: 'topright' }).addTo(map);
+    } else {
+        cartoFallback.addTo(map);
+    }
 
     // State Variables
     let geojsonLayerGroup = L.layerGroup().addTo(map);
