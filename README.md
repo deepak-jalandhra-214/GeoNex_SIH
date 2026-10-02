@@ -82,6 +82,12 @@ flowchart LR
 
 - Python 3.10 or newer
 - Git
+- The frontend is static HTML, CSS, and JavaScript using Leaflet from a CDN;
+  there is no `package.json`, Node package manager, or `npm install` step.
+- No environment variables or API keys are required. The optional MapTiler
+  integration is currently disabled and the dashboard uses its CARTO fallback.
+  There is no `.env.example` because the application currently has no runtime
+  environment variables to configure.
 
 ### Install and run
 
@@ -96,6 +102,9 @@ python -m pip install -r requirements.txt
 
 python run.py
 ```
+
+To use another machine, repeat these commands after cloning. Do not copy the
+local `.venv`; recreate it and install dependencies from `requirements.txt`.
 
 On Linux or macOS, activate the environment with:
 
