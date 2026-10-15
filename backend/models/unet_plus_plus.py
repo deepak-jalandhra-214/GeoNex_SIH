@@ -32,15 +32,9 @@ class GeospatialSegmentationPipeline:
             & (r < 180)
             & ~water_cond
         )
-        roof_cond = (
-            ((r > g + 20) & (r > b + 20))
-            | ((r > 200) & (g > 200) & (b > 200))
-        )
+        roof_cond = ((r > g + 20) & (r > b + 20)) | ((r > 200) & (g > 200) & (b > 200))
         building_cond = (
-            ((r > 160) | (g > 160) | (b > 160))
-            & ~water_cond
-            & ~road_cond
-            & ~roof_cond
+            ((r > 160) | (g > 160) | (b > 160)) & ~water_cond & ~road_cond & ~roof_cond
         )
 
         enhanced_mask[water_cond] = 3
