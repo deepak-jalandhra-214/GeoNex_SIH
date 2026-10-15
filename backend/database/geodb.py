@@ -2,6 +2,7 @@ import json
 import os
 from datetime import datetime
 
+
 class GeoSpatialDatabaseManager:
     """In-memory & JSON file persistent store for survey versions and master geospatial data."""
 
@@ -21,7 +22,7 @@ class GeoSpatialDatabaseManager:
             default_master = {
                 "type": "FeatureCollection",
                 "features": [],
-                "metadata": {"last_updated": datetime.now().isoformat(), "version": 1}
+                "metadata": {"last_updated": datetime.now().isoformat(), "version": 1},
             }
             with open(self.master_file, "w") as f:
                 json.dump(default_master, f)
@@ -34,7 +35,7 @@ class GeoSpatialDatabaseManager:
             "title": title,
             "survey_date": survey_date,
             "created_at": datetime.now().isoformat(),
-            "data": geojson_data
+            "data": geojson_data,
         }
         with open(self.surveys_file, "w") as f:
             json.dump(surveys, f, indent=2)
@@ -86,8 +87,8 @@ class GeoSpatialDatabaseManager:
             "metadata": {
                 "last_updated": datetime.now().isoformat(),
                 "total_features": len(master_features),
-                "version": master.get("metadata", {}).get("version", 1) + 1
-            }
+                "version": master.get("metadata", {}).get("version", 1) + 1,
+            },
         }
 
         with open(self.master_file, "w") as f:

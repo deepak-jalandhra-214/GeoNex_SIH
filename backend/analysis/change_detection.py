@@ -2,6 +2,7 @@ from shapely.geometry import shape, mapping, Polygon
 from shapely.strtree import STRtree
 import numpy as np
 
+
 class ChangeDetectionEngine:
     """
     AI-Based Incremental Change Detection Engine between two GIS survey datasets (T1 vs T2).
@@ -65,7 +66,7 @@ class ChangeDetectionEngine:
             "new_count": 0,
             "removed_count": 0,
             "modified_count": 0,
-            "unchanged_count": 0
+            "unchanged_count": 0,
         }
 
         # Compare each polygon in T2 against T1
@@ -96,12 +97,14 @@ class ChangeDetectionEngine:
                         "geometry": mapping(poly2),
                         "properties": {
                             "change_type": "MODIFIED",
-                            "status_color": "#FFEA00", # Yellow
-                            "class_name": feat2["properties"].get("class_name", "Building"),
+                            "status_color": "#FFEA00",  # Yellow
+                            "class_name": feat2["properties"].get(
+                                "class_name", "Building"
+                            ),
                             "area_sq_m": feat2["properties"].get("area_sq_m", 0),
                             "area_change_pct": round(area_diff * 100, 1),
-                            "description": f"Feature footprint altered by {round(area_diff*100, 1)}%"
-                        }
+                            "description": f"Feature footprint altered by {round(area_diff*100, 1)}%",
+                        },
                     }
                     change_features.append(mod_feat)
                 else:
@@ -115,11 +118,11 @@ class ChangeDetectionEngine:
                     "geometry": mapping(poly2),
                     "properties": {
                         "change_type": "NEW",
-                        "status_color": "#00E676", # Green
+                        "status_color": "#00E676",  # Green
                         "class_name": feat2["properties"].get("class_name", "Building"),
                         "area_sq_m": feat2["properties"].get("area_sq_m", 0),
-                        "description": "New construction / feature detected"
-                    }
+                        "description": "New construction / feature detected",
+                    },
                 }
                 change_features.append(new_feat)
 
@@ -133,11 +136,11 @@ class ChangeDetectionEngine:
                     "geometry": mapping(poly1),
                     "properties": {
                         "change_type": "REMOVED",
-                        "status_color": "#FF1744", # Red
+                        "status_color": "#FF1744",  # Red
                         "class_name": feat1["properties"].get("class_name", "Building"),
                         "area_sq_m": feat1["properties"].get("area_sq_m", 0),
-                        "description": "Demolished / removed structure"
-                    }
+                        "description": "Demolished / removed structure",
+                    },
                 }
                 change_features.append(rem_feat)
 
@@ -148,8 +151,8 @@ class ChangeDetectionEngine:
                 "summary": stats,
                 "total_changes": len(change_features),
                 "survey_t1_date": "2025-05-10",
-                "survey_t2_date": "2026-09-15"
-            }
+                "survey_t2_date": "2026-09-15",
+            },
         }
 
         return change_geojson
